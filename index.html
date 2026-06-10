@@ -7,174 +7,243 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Playfair+Display:ital,wght@0,900;1,800&display=swap');
 
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html,body{width:100%;height:100%;overflow:hidden;}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; }
 
-body{
-  font-family:'Inter',system-ui,sans-serif;
-  background:#080006;
-  height:100vh;height:100dvh;
-  display:flex;align-items:center;justify-content:center;
-  position:relative;
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #080006;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
 }
 
-#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
-.orb{position:fixed;border-radius:50%;pointer-events:none;z-index:1;}
-.orb1{width:600px;height:600px;background:radial-gradient(circle,rgba(210,15,75,.18) 0%,transparent 65%);top:-200px;right:-160px;animation:orbF1 8s ease-in-out infinite;}
-.orb2{width:500px;height:500px;background:radial-gradient(circle,rgba(100,0,85,.13) 0%,transparent 65%);bottom:-160px;left:-130px;animation:orbF2 10s ease-in-out infinite;}
-@keyframes orbF1{0%,100%{transform:translate(0,0)}50%{transform:translate(-28px,18px)}}
-@keyframes orbF2{0%,100%{transform:translate(0,0)}50%{transform:translate(18px,-22px)}}
+#bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+.orb { position: fixed; border-radius: 50%; pointer-events: none; z-index: 1; }
+.orb1 {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(210,15,75,.18) 0%, transparent 65%);
+  top: -200px; right: -160px;
+  animation: orbF1 8s ease-in-out infinite;
+}
+.orb2 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(100,0,85,.13) 0%, transparent 65%);
+  bottom: -160px; left: -130px;
+  animation: orbF2 10s ease-in-out infinite;
+}
+@keyframes orbF1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-28px,18px)} }
+@keyframes orbF2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(18px,-22px)} }
 
 /* ── CARD ── */
-#card{
-  position:relative;z-index:10;
-  width:min(88vw,440px);
-  background:rgba(16,2,12,.97);
-  border-radius:28px;padding:32px 28px 28px;
-  text-align:center;
-  box-shadow:0 0 0 1px rgba(255,50,95,.12) inset,0 32px 80px rgba(0,0,0,.85),0 0 100px rgba(200,15,70,.1);
-  animation:cardIn .65s cubic-bezier(.22,1,.36,1) both;
-  border:1px solid transparent;background-clip:padding-box;
+#card {
+  position: relative;
+  z-index: 10;
+  width: min(92vw, 460px);
+  background: rgba(16, 2, 12, 0.97);
+  border-radius: 28px;
+  padding: 40px 36px 36px;
+  text-align: center;
+  box-shadow:
+    0 0 0 1px rgba(255,50,95,.12) inset,
+    0 32px 80px rgba(0,0,0,.85),
+    0 0 100px rgba(200,15,70,.1);
+  animation: cardIn .65s cubic-bezier(.22,1,.36,1) both;
+  border: 1px solid transparent;
+  background-clip: padding-box;
 }
-#card::before{
-  content:'';position:absolute;inset:-1px;border-radius:29px;z-index:-1;
-  background:linear-gradient(135deg,rgba(255,50,95,.35),rgba(150,0,120,.18),rgba(255,50,95,.08),rgba(150,0,120,.28));
-  background-size:300% 300%;animation:borderRot 5s linear infinite;
+#card::before {
+  content: '';
+  position: absolute; inset: -1px; border-radius: 29px; z-index: -1;
+  background: linear-gradient(135deg, rgba(255,50,95,.35), rgba(150,0,120,.18), rgba(255,50,95,.08), rgba(150,0,120,.28));
+  background-size: 300% 300%;
+  animation: borderRot 5s linear infinite;
 }
-@keyframes borderRot{0%{background-position:0% 50%}100%{background-position:300% 50%}}
-@keyframes cardIn{from{opacity:0;transform:translateY(22px) scale(.96)}to{opacity:1;transform:none}}
-@keyframes shake{
+@keyframes borderRot { 0%{background-position:0% 50%} 100%{background-position:300% 50%} }
+@keyframes cardIn { from{opacity:0;transform:translateY(22px) scale(.96)} to{opacity:1;transform:none} }
+@keyframes shake {
   0%,100%{transform:translateX(0)}
-  15%{transform:translateX(-7px) rotate(-.9deg)}
-  30%{transform:translateX(7px) rotate(.9deg)}
+  15%{transform:translateX(-6px) rotate(-.8deg)}
+  30%{transform:translateX(6px) rotate(.8deg)}
   50%{transform:translateX(-4px)}
   70%{transform:translateX(4px)}
   85%{transform:translateX(-1px)}
 }
-.shake{animation:shake .42s cubic-bezier(.36,.07,.19,.97) both;}
+.shake { animation: shake .42s cubic-bezier(.36,.07,.19,.97) both; }
 
-.badge{
-  display:inline-flex;align-items:center;gap:7px;
-  background:rgba(255,50,95,.1);border:1px solid rgba(255,50,95,.24);
-  border-radius:100px;padding:5px 14px 5px 10px;
-  font-size:10px;font-weight:700;letter-spacing:.12em;
-  text-transform:uppercase;color:#ff6090;margin-bottom:18px;
+/* badge */
+.badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(255,50,95,.1); border: 1px solid rgba(255,50,95,.24);
+  border-radius: 100px; padding: 5px 14px 5px 10px;
+  font-size: 10.5px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: #ff6090; margin-bottom: 24px;
 }
-.dot{width:7px;height:7px;background:#ff3060;border-radius:50%;animation:blink 1.4s ease-in-out infinite;flex-shrink:0;}
-@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.1;transform:scale(.7)}}
+.dot {
+  width: 7px; height: 7px; background: #ff3060; border-radius: 50%;
+  animation: blink 1.4s ease-in-out infinite; flex-shrink: 0;
+}
+@keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.1;transform:scale(.7)} }
 
-.icon-wrap{
-  width:72px;height:72px;margin:0 auto 16px;border-radius:50%;
-  background:rgba(255,50,95,.09);border:1px solid rgba(255,50,95,.18);
-  display:flex;align-items:center;justify-content:center;font-size:32px;
-  animation:iPulse 4s ease-in-out infinite;
+/* icon */
+.icon-wrap {
+  width: 82px; height: 82px; margin: 0 auto 20px; border-radius: 50%;
+  background: rgba(255,50,95,.09); border: 1px solid rgba(255,50,95,.18);
+  display: flex; align-items: center; justify-content: center; font-size: 36px;
+  animation: iPulse 4s ease-in-out infinite;
 }
-@keyframes iPulse{
+@keyframes iPulse {
   0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(255,50,95,.14)}
   50%{transform:scale(1.06);box-shadow:0 0 0 12px rgba(255,50,95,0)}
 }
 
-h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(22px,5.5vw,36px);font-weight:900;line-height:1.15;color:#fff;margin-bottom:8px;}
-h1 em{font-style:italic;color:#ff3f6e;}
-.sub{font-size:clamp(12px,2.8vw,14px);color:rgba(255,185,210,.45);line-height:1.68;margin-bottom:18px;font-weight:400;}
-.divline{height:1px;background:linear-gradient(90deg,transparent,rgba(255,50,95,.2),transparent);margin-bottom:16px;}
+h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(25px, 5.8vw, 38px); font-weight: 900;
+  line-height: 1.15; color: #fff; margin-bottom: 10px;
+}
+h1 em { font-style: italic; color: #ff3f6e; }
 
-#msgBox{
-  background:rgba(255,50,95,.07);border:1px solid rgba(255,50,95,.14);
-  border-radius:12px;padding:10px 14px;margin-bottom:18px;
-  font-size:clamp(11.5px,2.7vw,13.5px);color:rgba(255,210,228,.8);
-  font-style:italic;line-height:1.55;min-height:42px;
-  display:flex;align-items:center;justify-content:center;
-  transition:opacity .3s ease;
+.sub {
+  font-size: clamp(13px, 2.9vw, 15px); color: rgba(255,185,210,.45);
+  line-height: 1.72; margin-bottom: 22px; font-weight: 400;
 }
 
-#meterWrap{margin-bottom:18px;opacity:0;transition:opacity .5s ease;}
-#meterWrap.show{opacity:1;}
-.m-label{display:flex;justify-content:space-between;margin-bottom:6px;}
-.m-label span{font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,100,140,.45);}
-.m-track{height:5px;background:rgba(255,50,95,.1);border-radius:99px;overflow:hidden;}
-#meterBar{height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,#ff3060,#ff80a8);transition:width .5s cubic-bezier(.34,1.4,.64,1);box-shadow:0 0 8px rgba(255,50,95,.45);}
-
-/* ── BUTTON ROW — holds both buttons side by side initially ── */
-#btnRow{
-  display:flex;gap:12px;align-items:stretch;
+.line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,50,95,.2), transparent);
+  margin-bottom: 20px;
 }
 
-/* ── YES button ── */
-#yesBtn{
-  flex:1;padding:14px 10px;
-  background:linear-gradient(135deg,#de1540,#b50f4a);
-  color:#fff;border:none;border-radius:13px;
-  font-family:'Inter',sans-serif;font-size:clamp(12px,3vw,15px);font-weight:800;
-  cursor:pointer;box-shadow:0 6px 22px rgba(200,15,65,.42);
-  transition:transform .15s,box-shadow .15s,font-size .4s;
-  position:relative;overflow:hidden;white-space:nowrap;
+#msgBox {
+  background: rgba(255,50,95,.07); border: 1px solid rgba(255,50,95,.14);
+  border-radius: 12px; padding: 12px 16px; margin-bottom: 24px;
+  font-size: clamp(12.5px, 2.9vw, 14px); color: rgba(255,210,228,.8);
+  font-style: italic; line-height: 1.58; min-height: 46px;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity .3s ease;
 }
-#yesBtn::after{content:'';position:absolute;inset:0;border-radius:inherit;background:linear-gradient(135deg,rgba(255,255,255,.1),transparent);pointer-events:none;}
-#yesBtn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(200,15,65,.6);}
-#yesBtn:active{transform:scale(.97);}
 
-/* ── NO button PHASE 1: inside card, side by side with YES ── */
-#noBtn{
-  /* Phase 1 styles — inside the flow */
-  flex:1;padding:14px 10px;
-  background:rgba(14,2,10,.92);
-  color:rgba(175,135,155,.85);
-  border:1.5px solid rgba(155,115,135,.4);
-  border-radius:13px;
-  font-family:'Inter',sans-serif;font-size:clamp(12px,3vw,15px);font-weight:700;
-  cursor:pointer;white-space:nowrap;text-align:center;
-  transition:background .2s,transform .15s;
-  -webkit-tap-highlight-color:transparent;
-  touch-action:manipulation;
-  user-select:none;
+/* desperation meter */
+#meterWrap {
+  margin-bottom: 22px;
+  opacity: 0;
+  transition: opacity .5s ease;
 }
-#noBtn:hover{background:rgba(155,115,135,.14);}
-#noBtn:active{transform:scale(.96);}
+#meterWrap.show { opacity: 1; }
+.m-label {
+  display: flex; justify-content: space-between;
+  margin-bottom: 6px;
+}
+.m-label span { font-size: 10.5px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: rgba(255,100,140,.45); }
+.m-track {
+  height: 5px; background: rgba(255,50,95,.1); border-radius: 99px; overflow: hidden;
+}
+#meterBar {
+  height: 100%; width: 0%; border-radius: 99px;
+  background: linear-gradient(90deg, #ff3060, #ff80a8);
+  transition: width .5s cubic-bezier(.34,1.4,.64,1);
+  box-shadow: 0 0 8px rgba(255,50,95,.45);
+}
 
-/* Phase 2: becomes fixed — JS adds this class after first click */
-#noBtn.escaped{
-  position:fixed !important;
-  z-index:9999 !important;
-  flex:unset !important;
-  /* smooth movement */
+/* button row */
+.btn-row { display: flex; gap: 12px; }
+
+#yesBtn {
+  flex: 1; padding: 15px 10px;
+  background: linear-gradient(135deg, #de1540, #b50f4a);
+  color: #fff; border: none; border-radius: 13px;
+  font-family: 'Inter', sans-serif; font-size: clamp(13px, 3vw, 15px); font-weight: 800;
+  cursor: pointer; box-shadow: 0 6px 22px rgba(200,15,65,.42);
+  transition: transform .15s, box-shadow .15s, font-size .4s, width .4s;
+  position: relative; overflow: hidden; white-space: nowrap;
+}
+#yesBtn::after {
+  content: ''; position: absolute; inset: 0; border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255,255,255,.1), transparent); pointer-events: none;
+}
+#yesBtn:hover  { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(200,15,65,.6); }
+#yesBtn:active { transform: scale(.97); }
+
+/* NO placeholder — keeps card layout stable when NO floats away */
+#noPlaceholder {
+  flex: 1;
+  /* invisible, just holds space in btn-row */
+  visibility: hidden;
+  padding: 15px 10px;
+  border-radius: 13px;
+}
+
+/* NO button — ALWAYS fixed, positioned by JS before showing */
+#noBtn {
+  position: fixed;
+  z-index: 9999;
+  padding: 14px 24px;
+  background: rgba(14, 2, 10, 0.88);
+  color: rgba(175,135,155,.7);
+  border: 1.5px solid rgba(155,115,135,.32);
+  border-radius: 13px;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(13px, 3vw, 15px);
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  /* starts invisible, JS places it then shows it */
+  visibility: hidden;
+  opacity: 0;
   transition:
-    left   .38s cubic-bezier(.34,1.5,.64,1),
-    top    .38s cubic-bezier(.34,1.5,.64,1),
-    opacity .3s ease,
-    font-size .25s ease !important;
+    left   .44s cubic-bezier(.34,1.5,.64,1),
+    top    .44s cubic-bezier(.34,1.5,.64,1),
+    opacity .35s ease,
+    font-size .3s ease;
 }
+#noBtn:hover { background: rgba(155,115,135,.1); }
 
 /* ── SCREEN 2 ── */
-#screen2{
-  display:none;position:relative;z-index:10;
-  width:min(88vw,440px);
-  background:rgba(16,2,12,.97);
-  border-radius:28px;padding:48px 32px 44px;
-  text-align:center;flex-direction:column;align-items:center;gap:14px;
-  box-shadow:0 32px 80px rgba(0,0,0,.85),0 0 100px rgba(200,15,70,.1);
-  border:1px solid transparent;background-clip:padding-box;
-  animation:cardIn .6s cubic-bezier(.22,1,.36,1) both;
+#screen2 {
+  display: none; position: relative; z-index: 10;
+  width: min(92vw, 460px);
+  background: rgba(16,2,12,.97);
+  border-radius: 28px; padding: 50px 36px 46px;
+  text-align: center; flex-direction: column; align-items: center; gap: 14px;
+  box-shadow: 0 32px 80px rgba(0,0,0,.85), 0 0 100px rgba(200,15,70,.1);
+  border: 1px solid transparent; background-clip: padding-box;
+  animation: cardIn .6s cubic-bezier(.22,1,.36,1) both;
 }
-#screen2::before{
-  content:'';position:absolute;inset:-1px;border-radius:29px;z-index:-1;
-  background:linear-gradient(135deg,rgba(255,220,50,.38),rgba(255,150,50,.18),rgba(255,220,50,.08),rgba(255,150,50,.28));
-  background-size:300% 300%;animation:borderRot 4s linear infinite;
+#screen2::before {
+  content: ''; position: absolute; inset: -1px; border-radius: 29px; z-index: -1;
+  background: linear-gradient(135deg, rgba(255,220,50,.38), rgba(255,150,50,.18), rgba(255,220,50,.08), rgba(255,150,50,.28));
+  background-size: 300% 300%; animation: borderRot 4s linear infinite;
 }
-.ty-ring{
-  width:88px;height:88px;border-radius:50%;
-  background:rgba(255,220,60,.09);border:1px solid rgba(255,220,60,.22);
-  display:flex;align-items:center;justify-content:center;font-size:38px;
-  animation:popIn .5s cubic-bezier(.34,1.56,.64,1) both .12s;
+.ty-ring {
+  width: 90px; height: 90px; border-radius: 50%;
+  background: rgba(255,220,60,.09); border: 1px solid rgba(255,220,60,.22);
+  display: flex; align-items: center; justify-content: center; font-size: 40px;
+  animation: popIn .5s cubic-bezier(.34,1.56,.64,1) both .12s;
 }
-@keyframes popIn{from{opacity:0;transform:scale(.25)}to{opacity:1;transform:scale(1)}}
-#screen2 h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(20px,5vw,30px);font-weight:900;color:#fff;line-height:1.18;}
-#screen2 h2 em{font-style:italic;color:#ffe44d;}
-.ty-sub{font-size:clamp(12px,2.8vw,14px);color:rgba(255,200,215,.55);line-height:1.68;max-width:300px;}
-.ty-bye{font-size:11px;color:rgba(255,130,160,.25);letter-spacing:.05em;margin-top:4px;}
+@keyframes popIn { from{opacity:0;transform:scale(.25)} to{opacity:1;transform:scale(1)} }
+#screen2 h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(22px,5.2vw,32px); font-weight: 900; color: #fff; line-height: 1.18;
+}
+#screen2 h2 em { font-style: italic; color: #ffe44d; }
+.ty-sub { font-size: clamp(13px,2.9vw,15px); color: rgba(255,200,215,.55); line-height: 1.68; max-width: 310px; }
+.ty-bye { font-size: 11.5px; color: rgba(255,130,160,.25); letter-spacing: .05em; margin-top: 4px; }
 
-.cbit{position:fixed;top:-14px;border-radius:3px;pointer-events:none;z-index:9997;}
-@keyframes cfall{to{transform:translateY(110vh) rotate(640deg);opacity:0;}}
+.cbit { position: fixed; top: -14px; border-radius: 3px; pointer-events: none; z-index: 9997; }
+@keyframes cfall { to { transform: translateY(110vh) rotate(640deg); opacity: 0; } }
+
+@media (max-width: 360px) {
+  #card, #screen2 { padding: 28px 16px 24px; border-radius: 22px; }
+  .icon-wrap       { width: 68px; height: 68px; font-size: 30px; }
+  .btn-row         { flex-direction: column; }
+  #noPlaceholder   { display: none; }
+}
 </style>
 </head>
 <body>
@@ -183,6 +252,7 @@ h1 em{font-style:italic;color:#ff3f6e;}
 <div class="orb orb1"></div>
 <div class="orb orb2"></div>
 
+<!-- SCREEN 1 -->
 <div id="card">
   <div class="badge"><span class="dot"></span> Important Message</div>
   <div class="icon-wrap">🙅‍♀️</div>
@@ -192,8 +262,9 @@ h1 em{font-style:italic;color:#ff3f6e;}
     But I do not want to be your girlfriend.<br>
     Please understand and move on.
   </p>
-  <div class="divline"></div>
+  <div class="line"></div>
   <div id="msgBox">You deserve someone who truly likes you back. 💙 Please go find that person.</div>
+
   <div id="meterWrap">
     <div class="m-label">
       <span>🏃 Running away</span>
@@ -201,13 +272,17 @@ h1 em{font-style:italic;color:#ff3f6e;}
     </div>
     <div class="m-track"><div id="meterBar"></div></div>
   </div>
-  <!-- Both buttons side by side on first visit -->
-  <div id="btnRow">
+
+  <div class="btn-row">
     <button id="yesBtn" onclick="handleYes()">Okay, I understand 👍</button>
-    <button id="noBtn">No, I won't 😤</button>
+    <div id="noPlaceholder"></div>
   </div>
 </div>
 
+<!-- NO button: fixed, outside card entirely -->
+<button id="noBtn" onclick="handleNo()">No, I won't 😤</button>
+
+<!-- SCREEN 2 -->
 <div id="screen2">
   <div class="ty-ring">🎉</div>
   <h2>Thank you for <em>understanding.</em></h2>
@@ -217,225 +292,310 @@ h1 em{font-style:italic;color:#ff3f6e;}
 
 <script>
 /* ── PARTICLES ── */
-const cvs=document.getElementById('bg'),ctx=cvs.getContext('2d');
-let VW=0,VH=0;
-function resizeCvs(){VW=cvs.width=window.innerWidth;VH=cvs.height=window.innerHeight;}
-resizeCvs();window.addEventListener('resize',resizeCvs);
-function newP(sc){return{x:Math.random()*(VW||400),y:sc?Math.random()*(VH||700):(VH||700)+10,s:3+Math.random()*8,vy:.25+Math.random()*.46,t:Math.random()*Math.PI*2,a:.04+Math.random()*.08,heart:Math.random()>.4};}
-const parts=Array.from({length:22},()=>newP(true));
-function drawHeart(x,y,s,a){ctx.save();ctx.globalAlpha=a;ctx.fillStyle='#d82858';ctx.beginPath();ctx.moveTo(x,y+s*.3);ctx.bezierCurveTo(x,y,x-s,y,x-s,y+s*.42);ctx.bezierCurveTo(x-s,y+s,x,y+s*1.28,x,y+s*1.55);ctx.bezierCurveTo(x,y+s*1.28,x+s,y+s,x+s,y+s*.42);ctx.bezierCurveTo(x+s,y,x,y,x,y+s*.3);ctx.fill();ctx.restore();}
-(function animBg(){ctx.clearRect(0,0,VW,VH);parts.forEach(p=>{p.t+=.014;p.x+=Math.sin(p.t)*.36;p.y-=p.vy;if(p.y<-20)Object.assign(p,newP(false));if(p.heart)drawHeart(p.x,p.y,p.s,p.a);else{ctx.save();ctx.globalAlpha=p.a*.6;ctx.fillStyle='#a00848';ctx.beginPath();ctx.arc(p.x,p.y,p.s*.48,0,Math.PI*2);ctx.fill();ctx.restore();}});requestAnimationFrame(animBg);})();
+const cvs = document.getElementById('bg');
+const ctx = cvs.getContext('2d');
+let VW = 0, VH = 0;
+function resizeCvs() { VW = cvs.width = window.innerWidth; VH = cvs.height = window.innerHeight; }
+resizeCvs();
+window.addEventListener('resize', resizeCvs);
+function newP(sc) {
+  return { x:Math.random()*(VW||400), y:sc?Math.random()*(VH||700):(VH||700)+10,
+           s:3+Math.random()*8, vy:.25+Math.random()*.46, t:Math.random()*Math.PI*2,
+           a:.04+Math.random()*.08, heart:Math.random()>.4 };
+}
+const parts = Array.from({length:22},()=>newP(true));
+function drawHeart(x,y,s,a) {
+  ctx.save(); ctx.globalAlpha=a; ctx.fillStyle='#d82858';
+  ctx.beginPath();
+  ctx.moveTo(x,y+s*.3);
+  ctx.bezierCurveTo(x,y,x-s,y,x-s,y+s*.42);
+  ctx.bezierCurveTo(x-s,y+s,x,y+s*1.28,x,y+s*1.55);
+  ctx.bezierCurveTo(x,y+s*1.28,x+s,y+s,x+s,y+s*.42);
+  ctx.bezierCurveTo(x+s,y,x,y,x,y+s*.3);
+  ctx.fill(); ctx.restore();
+}
+(function animBg(){
+  ctx.clearRect(0,0,VW,VH);
+  parts.forEach(p=>{
+    p.t+=.014; p.x+=Math.sin(p.t)*.36; p.y-=p.vy;
+    if(p.y<-20) Object.assign(p,newP(false));
+    if(p.heart){drawHeart(p.x,p.y,p.s,p.a);}
+    else{ctx.save();ctx.globalAlpha=p.a*.6;ctx.fillStyle='#a00848';ctx.beginPath();ctx.arc(p.x,p.y,p.s*.48,0,Math.PI*2);ctx.fill();ctx.restore();}
+  });
+  requestAnimationFrame(animBg);
+})();
 
 /* ── STATE ── */
-const noBtn=document.getElementById('noBtn');
-const msgBox=document.getElementById('msgBox');
-const yesBtn=document.getElementById('yesBtn');
-const meterWrap=document.getElementById('meterWrap');
-const meterBar=document.getElementById('meterBar');
-const meterLbl=document.getElementById('meterLabel');
-const btnRow=document.getElementById('btnRow');
+const noBtn     = document.getElementById('noBtn');
+const msgBox    = document.getElementById('msgBox');
+const yesBtn    = document.getElementById('yesBtn');
+const meterWrap = document.getElementById('meterWrap');
+const meterBar  = document.getElementById('meterBar');
+const meterLbl  = document.getElementById('meterLabel');
 
-const MAX_NO=10;
-let noCount=0;
-let hasEscaped=false; // true after first NO click
-let moveCooldown=false;
-let lastPos={x:0,y:0};
+const MAX_NO = 10;
+let noCount  = 0;
+let moving   = false; // debounce
 
-const MSGS=["Come on. Please just understand me. 🙏","I already said NO. Please respect that. 🚫","Clicking that will never change my answer. 😅","I am completely serious. Not interested. 💔","You seem nice, but my answer is still NO. 😐","Please stop. This is not going anywhere. 🛑","You are only wasting your own time here. 😔","This is getting embarrassing. Please stop. 😬","Still NO. Go find someone who truly likes you. ⭐","Okay fine. I cannot run anymore. But it is still NO. 😂"];
-const NO_LABELS=["No, I won't 😤","No! Leave me 😤","Still no! 😠","Stop it! 😣","Please stop 😟","I'm begging you 🥺","Don't click me! 😭","PLEASE NO 😱","I give up... 😵","...okay fine 😶"];
+const MSGS = [
+  "Come on. Please just understand me. 🙏",
+  "I already said NO. Please respect that. 🚫",
+  "Clicking that will never change my answer. 😅",
+  "I am completely serious. Not interested. 💔",
+  "You seem nice, but my answer is still NO. 😐",
+  "Please stop. This is not going anywhere. 🛑",
+  "You are only wasting your own time here. 😔",
+  "This is getting embarrassing. Please stop. 😬",
+  "Still NO. Go find someone who truly likes you. ⭐",
+  "Okay fine. I cannot run anymore. But it is still NO. 😂"
+];
 
-/* ─────────────────────────────────────────
+const NO_LABELS = [
+  "No, I won't 😤",
+  "No! Leave me 😤",
+  "Still no! 😠",
+  "Stop it! 😣",
+  "Please stop 😟",
+  "I'm begging you 🥺",
+  "Don't click me! 😭",
+  "PLEASE NO 😱",
+  "I give up... 😵",
+  "...okay fine 😶"
+];
+
+/* ────────────────────────────────
    SAFE POSITION CALCULATOR
-   Works on every screen size.
-   Returns {x,y} that is:
-   - fully inside viewport (PAD from edges)
-   - does not overlap the card
-   - as far as possible from lastPos
-───────────────────────────────────────── */
-function getSafePos(){
-  const PAD=14;
-  const bw=noBtn.offsetWidth||130;
-  const bh=noBtn.offsetHeight||46;
-  const vw=window.innerWidth;
-  const vh=window.innerHeight;
+   Guarantees button stays fully
+   within viewport, never on card
+──────────────────────────────── */
+function safePos() {
+  // Force a fresh measure every time
+  const bw  = noBtn.offsetWidth  || 160;
+  const bh  = noBtn.offsetHeight || 50;
+  const vw  = window.innerWidth;
+  const vh  = window.innerHeight;
+  const PAD = 16; // edge padding
 
-  const cardEl=document.getElementById('card');
-  let C=null;
-  if(cardEl&&cardEl.style.display!=='none'){
-    const r=cardEl.getBoundingClientRect();
-    const BUF=22;
-    C={l:r.left-BUF,r:r.right+BUF,t:r.top-BUF,b:r.bottom+BUF};
+  // Card bounds with buffer
+  const cardEl = document.getElementById('card');
+  let C = null;
+  if (cardEl && cardEl.offsetParent !== null) {
+    const r = cardEl.getBoundingClientRect();
+    const BUF = 30;
+    C = { l: r.left-BUF, r: r.right+BUF, t: r.top-BUF, b: r.bottom+BUF };
   }
 
-  const zones=[];
-  if(C){
-    if(C.t-PAD>=bh+4)         zones.push({x1:PAD,y1:PAD,x2:vw-bw-PAD,y2:C.t-bh-4});
-    if(vh-C.b-PAD>=bh+4)      zones.push({x1:PAD,y1:C.b+4,x2:vw-bw-PAD,y2:vh-bh-PAD});
-    if(C.l-PAD>=bw+4)         zones.push({x1:PAD,y1:PAD,x2:C.l-bw-4,y2:vh-bh-PAD});
-    if(vw-C.r-PAD>=bw+4)      zones.push({x1:C.r+4,y1:PAD,x2:vw-bw-PAD,y2:vh-bh-PAD});
-  }
-  if(zones.length===0)
-    zones.push({x1:PAD,y1:PAD,x2:Math.max(PAD+2,vw-bw-PAD),y2:Math.max(PAD+2,vh-bh-PAD)});
+  // Four zones around the card
+  // Each zone: button must fit fully inside viewport
+  const zones = [];
+  if (C) {
+    // TOP zone
+    const topH = C.t - PAD;
+    if (topH >= bh + 4)
+      zones.push({ x1: PAD, y1: PAD, x2: vw - bw - PAD, y2: C.t - bh });
 
-  const valid=zones.filter(z=>z.x2>z.x1+4&&z.y2>z.y1+4);
-  const pool=valid.length>0?valid:zones;
-  const areas=pool.map(z=>(z.x2-z.x1)*(z.y2-z.y1));
-  const total=areas.reduce((a,b)=>a+b,0);
+    // BOTTOM zone
+    const botH = vh - C.b - PAD;
+    if (botH >= bh + 4)
+      zones.push({ x1: PAD, y1: C.b, x2: vw - bw - PAD, y2: vh - bh - PAD });
 
-  let best=null,bestD=0;
-  for(let i=0;i<14;i++){
-    let pick=Math.random()*total,z=pool[pool.length-1];
-    for(let j=0;j<pool.length;j++){pick-=areas[j];if(pick<=0){z=pool[j];break;}}
-    const x=z.x1+Math.random()*(z.x2-z.x1);
-    const y=z.y1+Math.random()*(z.y2-z.y1);
-    const d=Math.hypot(x-lastPos.x,y-lastPos.y);
-    if(d>bestD){bestD=d;best={x:Math.round(x),y:Math.round(y)};}
+    // LEFT zone
+    const leftW = C.l - PAD;
+    if (leftW >= bw + 4)
+      zones.push({ x1: PAD, y1: PAD, x2: C.l - bw, y2: vh - bh - PAD });
+
+    // RIGHT zone
+    const rightW = vw - C.r - PAD;
+    if (rightW >= bw + 4)
+      zones.push({ x1: C.r, y1: PAD, x2: vw - bw - PAD, y2: vh - bh - PAD });
+  } else {
+    zones.push({ x1: PAD, y1: PAD, x2: vw - bw - PAD, y2: vh - bh - PAD });
   }
+
+  // Filter zones that have real area
+  const valid = zones.filter(z => z.x2 - z.x1 > 8 && z.y2 - z.y1 > 8);
+
+  if (valid.length > 0) {
+    // Pick a zone weighted by area so bigger zones get more chance
+    const areas = valid.map(z => (z.x2-z.x1) * (z.y2-z.y1));
+    const total = areas.reduce((a,b)=>a+b,0);
+    let pick = Math.random() * total;
+    let z = valid[valid.length-1];
+    for (let i=0;i<valid.length;i++) { pick -= areas[i]; if(pick<=0){z=valid[i];break;} }
+    const x = z.x1 + Math.random() * (z.x2 - z.x1);
+    const y = z.y1 + Math.random() * (z.y2 - z.y1);
+    return { x: Math.round(x), y: Math.round(y) };
+  }
+
+  // Absolute fallback: four corners, pick one far from current position
+  const cur = noBtn.getBoundingClientRect();
+  const corners = [
+    {x:PAD,               y:PAD},
+    {x:vw-bw-PAD,         y:PAD},
+    {x:PAD,               y:vh-bh-PAD},
+    {x:vw-bw-PAD,         y:vh-bh-PAD}
+  ];
+  // Pick corner farthest from current center
+  const cx = cur.left + bw/2, cy = cur.top + bh/2;
+  let best = corners[0], bestD = 0;
+  corners.forEach(c => {
+    const d = Math.hypot(c.x+bw/2-cx, c.y+bh/2-cy);
+    if(d>bestD){bestD=d;best=c;}
+  });
   return best;
 }
 
-/* ─────────────────────────────────────────
-   ESCAPE: called once on first NO click.
-   Pulls the button out of the card's flow,
-   stamps it at its current screen position,
-   then immediately moves it away.
-───────────────────────────────────────── */
-function escapeFromCard(){
-  // 1. Measure where the button is RIGHT NOW on screen
-  const rect=noBtn.getBoundingClientRect();
-  const startX=Math.round(rect.left);
-  const startY=Math.round(rect.top);
-
-  // 2. Detach from card layout — make it fixed at exact same spot (no jump)
-  noBtn.style.position='fixed';
-  noBtn.style.left=startX+'px';
-  noBtn.style.top=startY+'px';
-  noBtn.style.width=rect.width+'px';   // lock size so it doesn't reflow
-  noBtn.style.flex='unset';
-  noBtn.classList.add('escaped');
-
-  // 3. Remove placeholder space in the row so YES goes full width
-  btnRow.style.display='block'; // YES fills naturally
-  yesBtn.style.width='100%';
-
-  lastPos={x:startX,y:startY};
-  hasEscaped=true;
-
-  // 4. Now move it away (one rAF so the fixed position renders first)
-  requestAnimationFrame(()=>requestAnimationFrame(()=>moveNoBtn()));
+/* ── Move NO button to a safe spot ── */
+function moveNoBtn() {
+  if (moving) return;
+  moving = true;
+  const {x, y} = safePos();
+  noBtn.style.left = x + 'px';
+  noBtn.style.top  = y + 'px';
+  setTimeout(() => { moving = false; }, 460);
 }
 
-/* Move to a new safe spot (only after escaped) */
-function moveNoBtn(){
-  if(moveCooldown)return;
-  moveCooldown=true;
-  const pos=getSafePos();
-  if(pos){
-    lastPos=pos;
-    noBtn.style.left=pos.x+'px';
-    noBtn.style.top=pos.y+'px';
-  }
-  setTimeout(()=>{moveCooldown=false;},420);
+/* ── Initial placement: measure, place, then reveal ── */
+function initNoBtn() {
+  // Make visible but transparent so we can measure size
+  noBtn.style.visibility = 'visible';
+  noBtn.style.opacity = '0';
+
+  // Wait one frame for browser to calculate dimensions
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      moveNoBtn();
+      // Fade in after placement
+      setTimeout(() => {
+        noBtn.style.opacity = '1';
+      }, 100);
+    });
+  });
 }
 
-/* Reposition on orientation change / resize */
-window.addEventListener('resize',()=>{
-  if(hasEscaped&&noCount<MAX_NO) moveNoBtn();
+// Init after page fully loaded
+window.addEventListener('load', () => { setTimeout(initNoBtn, 250); });
+// Fallback if load already fired
+if (document.readyState === 'complete') setTimeout(initNoBtn, 250);
+
+/* ── Desktop: flee on hover ── */
+noBtn.addEventListener('mouseenter', () => {
+  if (noCount < MAX_NO) moveNoBtn();
 });
 
-/* ── Desktop: flee on hover (only after escaped) ── */
-noBtn.addEventListener('mouseenter',()=>{
-  if(hasEscaped&&noCount<MAX_NO) moveNoBtn();
-});
-
-/* ── Mobile: flee when finger gets close (only after escaped) ── */
-let lastProx=0;
-document.addEventListener('touchmove',(e)=>{
-  if(!hasEscaped||noCount>=MAX_NO)return;
-  const now=Date.now();if(now-lastProx<80)return;lastProx=now;
-  const t=e.touches[0];if(!t)return;
-  const r=noBtn.getBoundingClientRect();
-  const G=70;
-  if(t.clientX>r.left-G&&t.clientX<r.right+G&&t.clientY>r.top-G&&t.clientY<r.bottom+G){
-    if(!moveCooldown)moveNoBtn();
+/* ── Mobile: flee when finger comes close ── */
+let lastTouch = 0;
+document.addEventListener('touchmove', function(e) {
+  if (noCount >= MAX_NO) return;
+  const now = Date.now();
+  if (now - lastTouch < 60) return;
+  lastTouch = now;
+  const t = e.touches[0]; if (!t) return;
+  const r = noBtn.getBoundingClientRect();
+  const G = 68;
+  if (t.clientX > r.left-G && t.clientX < r.right+G &&
+      t.clientY > r.top-G  && t.clientY < r.bottom+G) {
+    moveNoBtn();
   }
-},{passive:true});
+}, {passive:true});
 
-/* shake card */
-function shakeCard(){const c=document.getElementById('card');c.classList.remove('shake');void c.offsetWidth;c.classList.add('shake');}
+/* ── shake card ── */
+function shakeCard() {
+  const c = document.getElementById('card');
+  c.classList.remove('shake');
+  void c.offsetWidth;
+  c.classList.add('shake');
+}
 
-/* vanish NO after max */
-function vanishNoBtn(){
-  noBtn.style.transition='opacity .6s ease';
-  noBtn.style.opacity='0';noBtn.style.pointerEvents='none';
-  setTimeout(()=>{noBtn.style.display='none';},700);
-  msgBox.style.opacity='0';
-  setTimeout(()=>{msgBox.textContent='The NO button has given up. Only one choice remains. 😏';msgBox.style.opacity='1';},260);
+/* ── vanish NO after MAX clicks ── */
+function vanishNoBtn() {
+  noBtn.style.transition = 'opacity .6s ease, left .44s cubic-bezier(.34,1.5,.64,1), top .44s cubic-bezier(.34,1.5,.64,1)';
+  noBtn.style.opacity = '0';
+  noBtn.style.pointerEvents = 'none';
+  setTimeout(() => { noBtn.style.display = 'none'; }, 700);
+
+  // YES goes full width, placeholder hidden
+  document.getElementById('noPlaceholder').style.display = 'none';
+  yesBtn.style.flex = '1 1 100%';
+
+  // Final message
+  msgBox.style.opacity = '0';
+  setTimeout(() => {
+    msgBox.textContent = 'The NO button has given up. Only one choice remains now. 😏';
+    msgBox.style.opacity = '1';
+  }, 240);
 }
 
 /* ── NO clicked ── */
-function handleNo(){
-  if(noCount>=MAX_NO)return;
+function handleNo() {
   noCount++;
 
-  if(noCount===1){
-    // FIRST click: escape animation
-    meterWrap.classList.add('show');
-    escapeFromCard();
-  } else {
-    // subsequent clicks: just move
-    if(noCount<MAX_NO) moveNoBtn();
-  }
+  // Show meter from click 1
+  if (noCount === 1) meterWrap.classList.add('show');
 
+  // Move button
+  if (noCount < MAX_NO) moveNoBtn();
+
+  // Shake card
   shakeCard();
 
-  msgBox.style.opacity='0';
-  setTimeout(()=>{msgBox.textContent=MSGS[Math.min(noCount-1,MSGS.length-1)];msgBox.style.opacity='1';},240);
+  // Update message
+  msgBox.style.opacity = '0';
+  setTimeout(() => {
+    if (noCount < MAX_NO) {
+      msgBox.textContent = MSGS[noCount - 1] || MSGS[MSGS.length - 1];
+    }
+    msgBox.style.opacity = '1';
+  }, 240);
 
-  noBtn.textContent=NO_LABELS[Math.min(noCount,NO_LABELS.length-1)];
+  // NO label evolves
+  noBtn.textContent = NO_LABELS[Math.min(noCount, NO_LABELS.length - 1)];
 
-  const cfs=parseFloat(getComputedStyle(noBtn).fontSize)||14;
-  if(noCount<MAX_NO)noBtn.style.fontSize=Math.max(9,cfs-.55)+'px';
+  // NO shrinks
+  const curFs = parseFloat(getComputedStyle(noBtn).fontSize) || 15;
+  if (noCount < MAX_NO) {
+    noBtn.style.fontSize = Math.max(10, curFs - 0.55) + 'px';
+  }
 
-  const pct=Math.min((noCount/MAX_NO)*100,100);
-  meterBar.style.width=pct+'%';
-  if(noCount>=7)meterBar.style.background='linear-gradient(90deg,#ff1040,#ff5070)';
-  const left=MAX_NO-noCount;
-  meterLbl.textContent=left>0?left+' escape'+(left!==1?'s':'')+' left':'No escapes left!';
+  // Meter fills
+  const pct = Math.min((noCount / MAX_NO) * 100, 100);
+  meterBar.style.width = pct + '%';
+  if (noCount >= 7) meterBar.style.background = 'linear-gradient(90deg,#ff1040,#ff5070)';
+  const left = MAX_NO - noCount;
+  meterLbl.textContent = left > 0 ? left + ' escape' + (left !== 1 ? 's' : '') + ' left' : 'No escapes left!';
 
-  const yfs=parseFloat(getComputedStyle(yesBtn).fontSize)||15;
-  if(yfs<21)yesBtn.style.fontSize=(yfs+.7)+'px';
+  // YES grows
+  const yFs = parseFloat(getComputedStyle(yesBtn).fontSize) || 15;
+  if (yFs < 21) yesBtn.style.fontSize = (yFs + 0.7) + 'px';
 
-  if(noCount>=MAX_NO)setTimeout(vanishNoBtn,800);
-}
-
-noBtn.addEventListener('click',handleNo);
-
-/* ── YES clicked ── */
-function handleYes(){
-  if(hasEscaped){noBtn.style.transition='opacity .3s ease';noBtn.style.opacity='0';noBtn.style.pointerEvents='none';}
-  const card=document.getElementById('card');
-  card.style.transition='opacity .38s ease,transform .38s ease';
-  card.style.opacity='0';card.style.transform='scale(.95) translateY(-12px)';
-  setTimeout(()=>{
-    card.style.display='none';
-    if(hasEscaped)noBtn.style.display='none';
-    const s2=document.getElementById('screen2');
-    s2.style.display='flex';doConfetti();
-  },400);
-}
-
-/* CONFETTI */
-const CC=['#ff4070','#ff85a8','#ffe44d','#5ce8e8','#fff','#a29bfe','#ff9f43','#55efc4'];
-function doConfetti(){
-  for(let i=0;i<100;i++){
-    const el=document.createElement('div');el.className='cbit';
-    const sz=5+Math.random()*9,col=CC[Math.floor(Math.random()*CC.length)];
-    const dur=1.8+Math.random()*1.6,del=Math.random()*.7;
-    el.style.cssText=`left:${Math.random()*100}vw;width:${sz}px;height:${sz*(.4+Math.random()*1.2)}px;background:${col};opacity:${.7+Math.random()*.3};transform:rotate(${Math.random()*360}deg);animation:cfall ${dur}s ${del}s cubic-bezier(.25,.46,.45,.94) forwards;`;
-    document.body.appendChild(el);setTimeout(()=>el.remove(),(dur+del+.3)*1000);
+  // Vanish after MAX
+  if (noCount >= MAX_NO) {
+    setTimeout(vanishNoBtn, 800);
   }
 }
-</script>
-</body>
-</html>
+
+/* ── YES clicked ── */
+function handleYes() {
+  noBtn.style.opacity = '0';
+  noBtn.style.pointerEvents = 'none';
+
+  const card = document.getElementById('card');
+  card.style.transition = 'opacity .38s ease, transform .38s ease';
+  card.style.opacity = '0';
+  card.style.transform = 'scale(.95) translateY(-12px)';
+
+  setTimeout(() => {
+    card.style.display = 'none';
+    noBtn.style.display = 'none';
+    const s2 = document.getElementById('screen2');
+    s2.style.display = 'flex';
+    doConfetti();
+  }, 400);
+}
+
+/* ── CONFETTI ── */
+const CC = ['#ff4070','#ff85a8','#ffe44d','#5ce8e8','#fff','#a29bfe','#ff9f43','#55efc4'];
+function doConfetti() {
+  for (let i = 0; i < 100; i++) {
+    const el = document.createElement('div'); el.className = 'cbit';
+    const sz  = 5 + Math.random
