@@ -3,20 +3,16 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<title>Leave Me Alone</title>
+<title>Leave Me Alone 🙅‍♀️</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,900;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Playfair+Display:ital,wght@0,900;1,800&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html, body {
-  width: 100%;
-  height: 100%;
-}
+html, body { width: 100%; height: 100%; }
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
-  background: #0c000a;
+  background: #080006;
   min-height: 100vh;
   min-height: 100dvh;
   display: flex;
@@ -25,289 +21,236 @@ body {
   overflow: hidden;
 }
 
-/* ── background canvas ── */
-#bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
+/* ── canvas bg ── */
+#bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 
 /* ── glow orbs ── */
-.orb {
-  position: fixed;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 1;
-}
+.orb { position: fixed; border-radius: 50%; pointer-events: none; z-index: 1; }
 .orb1 {
-  width: 550px; height: 550px;
-  background: radial-gradient(circle, rgba(200,20,80,0.16) 0%, transparent 70%);
-  top: -160px; right: -130px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(210,15,75,.2) 0%, transparent 65%);
+  top: -200px; right: -160px;
+  animation: orbFloat1 8s ease-in-out infinite;
 }
 .orb2 {
-  width: 450px; height: 450px;
-  background: radial-gradient(circle, rgba(110,0,90,0.13) 0%, transparent 70%);
-  bottom: -130px; left: -110px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(100,0,85,.15) 0%, transparent 65%);
+  bottom: -160px; left: -130px;
+  animation: orbFloat2 10s ease-in-out infinite;
 }
+@keyframes orbFloat1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-30px,20px)} }
+@keyframes orbFloat2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(20px,-25px)} }
 
-/* ══════════════════════
-   CARD
-══════════════════════ */
+/* ── CARD ── */
 #card {
   position: relative;
   z-index: 10;
-  width: min(90vw, 460px);
-  background: rgba(18, 3, 14, 0.96);
-  border: 1px solid rgba(255, 55, 100, 0.22);
-  border-radius: 26px;
+  width: min(92vw, 460px);
+  background: rgba(16, 2, 12, 0.97);
+  border-radius: 28px;
   padding: 40px 36px 36px;
   text-align: center;
   box-shadow:
-    0 0 0 1px rgba(255,55,100,0.06) inset,
-    0 24px 64px rgba(0,0,0,0.75),
-    0 0 80px rgba(180,15,70,0.1);
-  animation: cardIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    0 0 0 1px rgba(255,50,95,.14) inset,
+    0 32px 80px rgba(0,0,0,.85),
+    0 0 100px rgba(200,15,70,.12);
+  animation: cardIn .65s cubic-bezier(.22,1,.36,1) both;
+  /* animated border */
+  border: 1px solid transparent;
+  background-clip: padding-box;
 }
-@keyframes cardIn {
-  from { opacity: 0; transform: translateY(22px) scale(0.97); }
-  to   { opacity: 1; transform: none; }
+/* glowing ring around card */
+#card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 29px;
+  background: linear-gradient(135deg, rgba(255,50,95,.35), rgba(150,0,120,.2), rgba(255,50,95,.1), rgba(150,0,120,.3));
+  background-size: 300% 300%;
+  animation: borderRotate 5s linear infinite;
+  z-index: -1;
 }
+@keyframes borderRotate { 0%{background-position:0% 50%} 100%{background-position:300% 50%} }
+@keyframes cardIn { from{opacity:0;transform:translateY(24px) scale(.96)} to{opacity:1;transform:none} }
 
-/* badge */
+/* shake animation */
+@keyframes shake {
+  0%,100%{transform:translateX(0)}
+  15%{transform:translateX(-7px) rotate(-1deg)}
+  30%{transform:translateX(7px) rotate(1deg)}
+  45%{transform:translateX(-5px)}
+  60%{transform:translateX(5px)}
+  75%{transform:translateX(-2px)}
+}
+.shake { animation: shake .45s cubic-bezier(.36,.07,.19,.97) both; }
+
+/* ── badge ── */
 .badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  background: rgba(255,55,100,0.1);
-  border: 1px solid rgba(255,55,100,0.24);
-  border-radius: 100px;
-  padding: 5px 14px 5px 10px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-  color: #ff6090;
-  margin-bottom: 24px;
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(255,50,95,.1); border: 1px solid rgba(255,50,95,.25);
+  border-radius: 100px; padding: 5px 14px 5px 10px;
+  font-size: 10.5px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: #ff6090; margin-bottom: 24px;
 }
 .dot {
-  width: 7px; height: 7px;
-  background: #ff3060;
-  border-radius: 50%;
-  animation: blink 1.5s ease-in-out infinite;
-  flex-shrink: 0;
+  width: 7px; height: 7px; background: #ff3060; border-radius: 50%;
+  animation: blink 1.4s ease-in-out infinite; flex-shrink: 0;
 }
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.12} }
+@keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.1;transform:scale(.7)} }
 
-/* icon */
-.icon-circle {
-  width: 80px; height: 80px;
-  margin: 0 auto 20px;
-  border-radius: 50%;
-  background: rgba(255,55,100,0.09);
-  border: 1px solid rgba(255,55,100,0.18);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 36px;
-  animation: gentlePulse 3.5s ease-in-out infinite;
+/* ── icon ── */
+.icon-wrap {
+  width: 82px; height: 82px; margin: 0 auto 20px; border-radius: 50%;
+  background: rgba(255,50,95,.09); border: 1px solid rgba(255,50,95,.18);
+  display: flex; align-items: center; justify-content: center; font-size: 36px;
+  animation: iconPulse 4s ease-in-out infinite;
 }
-@keyframes gentlePulse {
-  0%,100% { transform: scale(1); }
-  50%      { transform: scale(1.05); }
+@keyframes iconPulse {
+  0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(255,50,95,.15)}
+  50%{transform:scale(1.06);box-shadow:0 0 0 12px rgba(255,50,95,0)}
 }
 
-/* heading */
+/* ── heading ── */
 h1 {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(24px, 5.5vw, 36px);
-  font-weight: 900;
-  line-height: 1.18;
-  color: #fff;
-  margin-bottom: 10px;
+  font-size: clamp(25px, 5.8vw, 38px);
+  font-weight: 900; line-height: 1.15; color: #fff; margin-bottom: 10px;
+  letter-spacing: -.01em;
 }
-h1 em {
-  font-style: italic;
-  color: #ff4070;
-}
+h1 em { font-style: italic; color: #ff3f6e; }
 
-/* sub */
+/* ── sub ── */
 .sub {
-  font-size: clamp(13px, 2.8vw, 15px);
-  color: rgba(255, 190, 215, 0.48);
-  line-height: 1.7;
-  margin-bottom: 24px;
-  font-weight: 400;
+  font-size: clamp(13px, 2.9vw, 15px); color: rgba(255,185,210,.45);
+  line-height: 1.72; margin-bottom: 22px; font-weight: 400;
 }
 
-/* divider */
+/* ── divider ── */
 .line {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,55,100,0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,50,95,.2), transparent);
   margin-bottom: 20px;
 }
 
-/* message box */
+/* ── message box ── */
 #msgBox {
-  background: rgba(255,55,100,0.07);
-  border: 1px solid rgba(255,55,100,0.15);
-  border-radius: 12px;
-  padding: 13px 16px;
-  margin-bottom: 26px;
-  font-size: clamp(12.5px, 2.8vw, 14px);
-  color: rgba(255, 215, 230, 0.78);
-  font-style: italic;
-  line-height: 1.6;
-  min-height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.28s ease;
-}
-
-/* ── BUTTON ROW — both side by side ── */
-.btn-row {
-  display: flex;
-  gap: 12px;
-  align-items: stretch;
-}
-
-/* YES button */
-#yesBtn {
-  flex: 1;
-  padding: 15px 10px;
-  background: linear-gradient(135deg, #e0173f, #b8114f);
-  color: #fff;
-  border: none;
-  border-radius: 13px;
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(13px, 3vw, 15px);
-  font-weight: 800;
-  cursor: pointer;
-  box-shadow: 0 6px 22px rgba(200,15,70,0.42);
-  transition: transform 0.15s, box-shadow 0.15s;
-  position: relative;
-  overflow: hidden;
-  white-space: nowrap;
-}
-#yesBtn::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
-  pointer-events: none;
-}
-#yesBtn:hover  { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(200,15,70,0.58); }
-#yesBtn:active { transform: scale(0.97); }
-
-/* NO button — INSIDE card by default, becomes fixed after first click */
-#noBtn {
-  flex: 1;
-  padding: 15px 10px;
-  background: transparent;
-  color: rgba(180, 140, 160, 0.65);
-  border: 1.5px solid rgba(160, 120, 140, 0.32);
-  border-radius: 13px;
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(13px, 3vw, 15px);
-  font-weight: 700;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background 0.15s;
-  /* position will be overridden to fixed after first click */
-}
-#noBtn:hover { background: rgba(160,120,140,0.08); }
-
-/* NO button AFTER it becomes floating */
-#noBtn.floating {
-  position: fixed;
-  z-index: 9999;
-  flex: unset;
-  /* smooth movement */
-  transition:
-    left 0.42s cubic-bezier(0.34, 1.5, 0.64, 1),
-    top  0.42s cubic-bezier(0.34, 1.5, 0.64, 1),
-    background 0.15s;
-}
-
-/* try counter */
-#tryCount {
-  margin-top: 14px;
-  font-size: 11px;
-  color: rgba(255, 100, 140, 0.32);
-  letter-spacing: 0.06em;
-  min-height: 16px;
-  transition: opacity 0.3s;
-}
-
-/* ══════════════════════
-   THANK-YOU SCREEN
-══════════════════════ */
-#screen2 {
-  display: none;
-  position: relative;
-  z-index: 10;
-  width: min(90vw, 460px);
-  background: rgba(18, 3, 14, 0.96);
-  border: 1px solid rgba(255, 55, 100, 0.22);
-  border-radius: 26px;
-  padding: 48px 36px 44px;
-  text-align: center;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.75);
-  animation: cardIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-.ty-icon {
-  width: 88px; height: 88px;
-  border-radius: 50%;
-  background: rgba(255,55,100,0.1);
-  border: 1px solid rgba(255,55,100,0.22);
+  background: rgba(255,50,95,.07); border: 1px solid rgba(255,50,95,.14);
+  border-radius: 12px; padding: 12px 16px; margin-bottom: 18px;
+  font-size: clamp(12.5px, 2.9vw, 14px); color: rgba(255,210,228,.8);
+  font-style: italic; line-height: 1.58; min-height: 46px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 40px;
-  animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both 0.15s;
+  transition: opacity .3s ease;
 }
-@keyframes popIn {
-  from { opacity: 0; transform: scale(0.3); }
-  to   { opacity: 1; transform: scale(1); }
+
+/* ── desperation meter ── */
+#meterWrap {
+  margin-bottom: 22px; opacity: 0; transition: opacity .4s ease;
 }
+#meterWrap.visible { opacity: 1; }
+.meter-label {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 6px;
+}
+.meter-label span { font-size: 10.5px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; }
+.meter-label .ml { color: rgba(255,100,140,.5); }
+.meter-label .mr { color: rgba(255,100,140,.5); font-size: 10px; }
+.meter-track {
+  height: 5px; background: rgba(255,50,95,.1); border-radius: 99px; overflow: hidden;
+}
+#meterFill {
+  height: 100%; width: 0%; border-radius: 99px;
+  background: linear-gradient(90deg, #ff3060, #ff80a8);
+  transition: width .5s cubic-bezier(.34,1.4,.64,1);
+  box-shadow: 0 0 8px rgba(255,50,95,.5);
+}
+
+/* ── button row ── */
+.btn-row { display: flex; gap: 12px; align-items: stretch; }
+
+/* YES */
+#yesBtn {
+  flex: 1; padding: 15px 10px;
+  background: linear-gradient(135deg, #de1540, #b50f4a);
+  color: #fff; border: none; border-radius: 13px;
+  font-family: 'Inter', sans-serif; font-size: clamp(13px, 3vw, 15px); font-weight: 800;
+  cursor: pointer; box-shadow: 0 6px 22px rgba(200,15,65,.42);
+  transition: transform .15s, box-shadow .15s, font-size .4s, padding .4s, flex .4s;
+  position: relative; overflow: hidden; white-space: nowrap;
+}
+#yesBtn::after {
+  content: ''; position: absolute; inset: 0; border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255,255,255,.12), transparent); pointer-events: none;
+}
+#yesBtn:hover  { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(200,15,65,.6); }
+#yesBtn:active { transform: scale(.97); }
+
+/* NO — initial inline */
+#noBtn {
+  flex: 1; padding: 15px 10px;
+  background: transparent; color: rgba(175,135,155,.62);
+  border: 1.5px solid rgba(155,115,135,.3); border-radius: 13px;
+  font-family: 'Inter', sans-serif; font-size: clamp(13px, 3vw, 15px); font-weight: 700;
+  cursor: pointer; white-space: nowrap;
+  transition: opacity .45s ease, background .15s, font-size .3s ease, padding .3s ease,
+              left .44s cubic-bezier(.34,1.5,.64,1), top .44s cubic-bezier(.34,1.5,.64,1);
+}
+#noBtn:hover { background: rgba(155,115,135,.08); }
+
+/* NO — floating */
+#noBtn.floating {
+  position: fixed; z-index: 9999; flex: unset;
+}
+
+/* ── try counter ── */
+#tryCount {
+  margin-top: 13px; font-size: 11px; color: rgba(255,95,130,.3);
+  letter-spacing: .06em; min-height: 15px; transition: opacity .3s;
+}
+
+/* ══════════════════════════════
+   THANK YOU SCREEN
+══════════════════════════════ */
+#screen2 {
+  display: none; position: relative; z-index: 10;
+  width: min(92vw, 460px);
+  background: rgba(16, 2, 12, 0.97);
+  border-radius: 28px; padding: 50px 36px 46px;
+  text-align: center; flex-direction: column; align-items: center; gap: 14px;
+  box-shadow: 0 32px 80px rgba(0,0,0,.85), 0 0 100px rgba(200,15,70,.12);
+  border: 1px solid transparent; background-clip: padding-box;
+  animation: cardIn .6s cubic-bezier(.22,1,.36,1) both;
+}
+#screen2::before {
+  content: ''; position: absolute; inset: -1px; border-radius: 29px;
+  background: linear-gradient(135deg, rgba(255,220,50,.4), rgba(255,150,50,.2), rgba(255,220,50,.1), rgba(255,150,50,.3));
+  background-size: 300% 300%; animation: borderRotate 4s linear infinite; z-index: -1;
+}
+.ty-ring {
+  width: 90px; height: 90px; border-radius: 50%;
+  background: rgba(255,220,60,.09); border: 1px solid rgba(255,220,60,.22);
+  display: flex; align-items: center; justify-content: center; font-size: 40px;
+  animation: popIn .5s cubic-bezier(.34,1.56,.64,1) both .12s;
+}
+@keyframes popIn { from{opacity:0;transform:scale(.25)} to{opacity:1;transform:scale(1)} }
 #screen2 h2 {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(22px, 5vw, 30px);
-  font-weight: 900;
-  color: #fff;
-  line-height: 1.2;
+  font-size: clamp(22px, 5.2vw, 32px); font-weight: 900; color: #fff; line-height: 1.18;
 }
-#screen2 .ty-body {
-  font-size: clamp(13px, 2.8vw, 15px);
-  color: rgba(255, 200, 220, 0.58);
-  line-height: 1.65;
-  max-width: 300px;
+#screen2 h2 em { font-style: italic; color: #ffe44d; }
+.ty-sub {
+  font-size: clamp(13px, 2.9vw, 15px); color: rgba(255,200,215,.55);
+  line-height: 1.68; max-width: 310px;
 }
-#screen2 .ty-bye {
-  font-size: 12px;
-  color: rgba(255, 130, 165, 0.28);
-  letter-spacing: 0.05em;
-  margin-top: 4px;
-}
+.ty-bye { font-size: 11.5px; color: rgba(255,130,160,.25); letter-spacing: .05em; margin-top: 4px; }
 
-/* confetti bits */
-.cbit {
-  position: fixed;
-  top: -14px;
-  border-radius: 3px;
-  pointer-events: none;
-  z-index: 9997;
-}
-@keyframes cfall {
-  to { transform: translateY(110vh) rotate(600deg); opacity: 0; }
-}
+/* confetti */
+.cbit { position: fixed; top: -14px; border-radius: 3px; pointer-events: none; z-index: 9997; }
+@keyframes cfall { to { transform: translateY(110vh) rotate(640deg); opacity: 0; } }
 
-/* small phones */
+/* small screens */
 @media (max-width: 360px) {
-  #card, #screen2 { padding: 28px 16px 24px; border-radius: 20px; }
-  .icon-circle     { width: 66px; height: 66px; font-size: 30px; }
+  #card, #screen2 { padding: 28px 16px 24px; border-radius: 22px; }
+  .icon-wrap       { width: 68px; height: 68px; font-size: 30px; }
   .btn-row         { flex-direction: column; }
 }
 </style>
@@ -318,317 +261,313 @@ h1 em {
 <div class="orb orb1"></div>
 <div class="orb orb2"></div>
 
-<!-- ── SCREEN 1 ── -->
+<!-- SCREEN 1 -->
 <div id="card">
   <div class="badge"><span class="dot"></span> Important Message</div>
-  <div class="icon-circle">🙅‍♀️</div>
+  <div class="icon-wrap">🙅‍♀️</div>
+
   <h1>I am <em>not interested.</em></h1>
   <p class="sub">
     I respect you as a person.<br>
     But I do not want to be your girlfriend.<br>
     Please understand and move on.
   </p>
+
   <div class="line"></div>
   <div id="msgBox">You deserve someone who truly likes you back. 💙 Please go find that person.</div>
 
-  <!-- BOTH BUTTONS SIDE BY SIDE -->
+  <!-- desperation meter (hidden until first NO click) -->
+  <div id="meterWrap">
+    <div class="meter-label">
+      <span class="ml">🏃 Running away</span>
+      <span class="mr" id="meterText">0 / 10</span>
+    </div>
+    <div class="meter-track"><div id="meterFill"></div></div>
+  </div>
+
   <div class="btn-row">
     <button id="yesBtn" onclick="handleYes()">Okay, I understand 👍</button>
     <button id="noBtn"  onclick="handleNo()">No, I won't 😤</button>
   </div>
-
   <div id="tryCount"></div>
 </div>
 
-<!-- ── SCREEN 2 ── -->
+<!-- SCREEN 2 -->
 <div id="screen2">
-  <div class="ty-icon">✅</div>
-  <h2>Thank you for understanding.</h2>
-  <p class="ty-body">Now please move on and find someone who truly cares for you. You deserve real happiness too. 💛</p>
-  <p class="ty-bye">You may close this page. Goodbye. 👋</p>
+  <div class="ty-ring">🎉</div>
+  <h2>Thank you for <em>understanding.</em></h2>
+  <p class="ty-sub">Now please move on and find someone who truly cares for you. You deserve real happiness too. 💛</p>
+  <p class="ty-bye">You may close this page now. Goodbye. 👋</p>
 </div>
 
-
 <script>
-/* ─────────────────────────────
-   BACKGROUND PARTICLES
-───────────────────────────── */
+/* ── PARTICLES ── */
 const cvs = document.getElementById('bg');
 const ctx = cvs.getContext('2d');
 let VW = 0, VH = 0;
-
-function resizeCvs() {
-  VW = cvs.width  = window.innerWidth;
-  VH = cvs.height = window.innerHeight;
-}
+function resizeCvs() { VW = cvs.width = window.innerWidth; VH = cvs.height = window.innerHeight; }
 resizeCvs();
 window.addEventListener('resize', resizeCvs);
 
 function newP(scatter) {
-  return {
-    x: Math.random() * (VW || 400),
-    y: scatter ? Math.random() * (VH || 700) : (VH || 700) + 10,
-    s: 4 + Math.random() * 9,
-    vy: 0.28 + Math.random() * 0.5,
-    t: Math.random() * Math.PI * 2,
-    a: 0.05 + Math.random() * 0.09,
-    heart: Math.random() > 0.45
-  };
+  return { x:Math.random()*(VW||400), y:scatter?Math.random()*(VH||700):(VH||700)+10,
+           s:3+Math.random()*8, vy:.25+Math.random()*.48, t:Math.random()*Math.PI*2,
+           a:.04+Math.random()*.08, heart:Math.random()>.4 };
 }
-const particles = Array.from({length: 20}, () => newP(true));
+const parts = Array.from({length:22},()=>newP(true));
 
-function drawHeart(x, y, s, a) {
-  ctx.save();
-  ctx.globalAlpha = a;
-  ctx.fillStyle = '#e83060';
+function drawHeart(x,y,s,a) {
+  ctx.save(); ctx.globalAlpha=a; ctx.fillStyle='#d82858';
   ctx.beginPath();
-  ctx.moveTo(x, y + s * 0.3);
-  ctx.bezierCurveTo(x, y,       x-s, y,       x-s, y+s*0.42);
-  ctx.bezierCurveTo(x-s, y+s,   x,   y+s*1.28, x,  y+s*1.55);
-  ctx.bezierCurveTo(x,   y+s*1.28, x+s, y+s,  x+s, y+s*0.42);
-  ctx.bezierCurveTo(x+s, y,     x,   y,       x,   y+s*0.3);
-  ctx.fill();
-  ctx.restore();
+  ctx.moveTo(x,y+s*.3);
+  ctx.bezierCurveTo(x,y, x-s,y, x-s,y+s*.42);
+  ctx.bezierCurveTo(x-s,y+s, x,y+s*1.28, x,y+s*1.55);
+  ctx.bezierCurveTo(x,y+s*1.28, x+s,y+s, x+s,y+s*.42);
+  ctx.bezierCurveTo(x+s,y, x,y, x,y+s*.3);
+  ctx.fill(); ctx.restore();
 }
-
 (function animBg() {
-  ctx.clearRect(0, 0, VW, VH);
-  particles.forEach(p => {
-    p.t  += 0.015;
-    p.x  += Math.sin(p.t) * 0.35;
-    p.y  -= p.vy;
-    if (p.y < -20) Object.assign(p, newP(false));
-    if (p.heart) {
-      drawHeart(p.x, p.y, p.s, p.a);
-    } else {
-      ctx.save();
-      ctx.globalAlpha = p.a * 0.65;
-      ctx.fillStyle = '#b01050';
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.s * 0.5, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-    }
+  ctx.clearRect(0,0,VW,VH);
+  parts.forEach(p => {
+    p.t+=.014; p.x+=Math.sin(p.t)*.38; p.y-=p.vy;
+    if(p.y<-20) Object.assign(p,newP(false));
+    if(p.heart) { drawHeart(p.x,p.y,p.s,p.a); }
+    else { ctx.save(); ctx.globalAlpha=p.a*.6; ctx.fillStyle='#a00848'; ctx.beginPath(); ctx.arc(p.x,p.y,p.s*.48,0,Math.PI*2); ctx.fill(); ctx.restore(); }
   });
   requestAnimationFrame(animBg);
 })();
 
+/* ── NO BUTTON ── */
+const noBtn     = document.getElementById('noBtn');
+const msgBox    = document.getElementById('msgBox');
+const yesBtn    = document.getElementById('yesBtn');
+const tryCount  = document.getElementById('tryCount');
+const meterWrap = document.getElementById('meterWrap');
+const meterFill = document.getElementById('meterFill');
+const meterText = document.getElementById('meterText');
 
-/* ─────────────────────────────
-   NO BUTTON LOGIC
-───────────────────────────── */
-const noBtn    = document.getElementById('noBtn');
-const msgBox   = document.getElementById('msgBox');
-const yesBtn   = document.getElementById('yesBtn');
-const tryCount = document.getElementById('tryCount');
+const MAX_NO    = 10;
+let noCount     = 0;
+let isFloating  = false;
+let placing     = false;
 
-let noCount    = 0;
-let isFloating = false; // becomes true after first click
-let placing    = false; // debounce
-
+// Messages change with each attempt
 const MSGS = [
-  "Come on. Please just understand. 🙏",
+  "Come on. Please just understand me. 🙏",
   "I already said NO. Please respect that. 🚫",
-  "Clicking that button will not change anything. 😅",
-  "I am serious. I am not interested. 💔",
-  "You seem nice, but my answer is still NO.",
-  "My answer will always be NO. Please stop. 🛑",
+  "Clicking that will never change my answer. 😅",
+  "I am completely serious. Not interested. 💔",
+  "You seem nice. But my answer is still NO. 😐",
+  "Please stop now. This is not going anywhere. 🛑",
   "You are only wasting your own time here. 😔",
-  "This is getting very silly. Please just accept it.",
-  "Still NO. Go find someone better for you. ⭐",
-  "That button will never ever work. I promise. 🤣",
-  "I will say NO one thousand more times if needed. 😂",
-  "I do respect you, but you must move on now. 💙",
-  "The other button is right there. Just click it. 👆",
-  "Please. It is time to let go. You will be okay. 🌟",
-  "NO. Final answer. Forever. No exceptions. 🙅‍♀️"
+  "This is getting embarrassing. Please stop. 😬",
+  "Still NO. Go find someone who truly likes you. ⭐",
+  "Okay fine. I cannot run anymore. But it is still NO. 😂"
 ];
 
-/* ── Get a position that avoids the card ── */
+// NO button label evolves — more scared each click
+const NO_LABELS = [
+  "No, I won't 😤",
+  "No! Leave me 😤",
+  "Still no! 😠",
+  "Stop it! 😣",
+  "Please stop 😟",
+  "I'm begging you 🥺",
+  "Don't click me! 😭",
+  "PLEASE NO 😱",
+  "I give up... 😵",
+  "...okay fine 😶"
+];
+
+/* ── pick safe position outside card ── */
 function safeSpot() {
-  const bw  = noBtn.offsetWidth  || 140;
+  const bw  = noBtn.offsetWidth  || 150;
   const bh  = noBtn.offsetHeight || 48;
-  const PAD = 14;
+  const PAD = 16;
   const vw  = window.innerWidth;
   const vh  = window.innerHeight;
-
-  // Card bounds + buffer
   const card = document.getElementById('card');
   let CR = null;
   if (card && card.style.display !== 'none') {
     const r = card.getBoundingClientRect();
-    const BUF = 24;
-    CR = { l: r.left-BUF, r: r.right+BUF, t: r.top-BUF, b: r.bottom+BUF };
+    CR = { l:r.left-32, r:r.right+32, t:r.top-32, b:r.bottom+32 };
   }
 
-  // Collect valid zones around card
   const zones = [];
   if (CR) {
-    if (CR.t > PAD + bh)                   zones.push({ x1:PAD,       y1:PAD,    x2:vw-bw-PAD,  y2:CR.t-bh   }); // top
-    if (CR.b < vh - bh - PAD)              zones.push({ x1:PAD,       y1:CR.b,   x2:vw-bw-PAD,  y2:vh-bh-PAD }); // bottom
-    if (CR.l > PAD + bw)                   zones.push({ x1:PAD,       y1:PAD,    x2:CR.l-bw,    y2:vh-bh-PAD }); // left
-    if (CR.r < vw - bw - PAD)              zones.push({ x1:CR.r,      y1:PAD,    x2:vw-bw-PAD,  y2:vh-bh-PAD }); // right
+    if (CR.t > PAD+bh)      zones.push({x1:PAD,   y1:PAD,   x2:vw-bw-PAD, y2:CR.t-bh});
+    if (CR.b < vh-bh-PAD)   zones.push({x1:PAD,   y1:CR.b,  x2:vw-bw-PAD, y2:vh-bh-PAD});
+    if (CR.l > PAD+bw)      zones.push({x1:PAD,   y1:PAD,   x2:CR.l-bw,   y2:vh-bh-PAD});
+    if (CR.r < vw-bw-PAD)   zones.push({x1:CR.r,  y1:PAD,   x2:vw-bw-PAD, y2:vh-bh-PAD});
   } else {
-    zones.push({ x1:PAD, y1:PAD, x2:vw-bw-PAD, y2:vh-bh-PAD });
+    zones.push({x1:PAD,y1:PAD,x2:vw-bw-PAD,y2:vh-bh-PAD});
   }
 
-  const valid = zones.filter(z => z.x2 > z.x1 + 20 && z.y2 > z.y1 + 20);
-
+  const valid = zones.filter(z => z.x2>z.x1+20 && z.y2>z.y1+20);
   if (valid.length) {
-    const z = valid[Math.floor(Math.random() * valid.length)];
-    return {
-      x: z.x1 + Math.random() * (z.x2 - z.x1),
-      y: z.y1 + Math.random() * (z.y2 - z.y1)
-    };
+    const z = valid[Math.floor(Math.random()*valid.length)];
+    return { x:z.x1+Math.random()*(z.x2-z.x1), y:z.y1+Math.random()*(z.y2-z.y1) };
   }
-  // fallback corners
-  const c = [
-    {x:PAD,         y:PAD},
-    {x:vw-bw-PAD,   y:PAD},
-    {x:PAD,         y:vh-bh-PAD},
-    {x:vw-bw-PAD,   y:vh-bh-PAD}
-  ];
-  return c[Math.floor(Math.random() * c.length)];
+  const corners=[{x:PAD,y:PAD},{x:vw-bw-PAD,y:PAD},{x:PAD,y:vh-bh-PAD},{x:vw-bw-PAD,y:vh-bh-PAD}];
+  return corners[~~(Math.random()*corners.length)];
 }
 
-/* ── Launch NO button into free-floating mode ── */
-function makeFloating() {
-  if (isFloating) return;
-  isFloating = true;
-
-  // Capture its current on-screen position before removing from flow
-  const rect = noBtn.getBoundingClientRect();
-
-  // Remove from card layout
-  noBtn.style.width  = noBtn.offsetWidth  + 'px';
-  noBtn.style.height = noBtn.offsetHeight + 'px';
-
-  // Apply floating styles
-  noBtn.classList.add('floating');
-  noBtn.style.left = rect.left + 'px';
-  noBtn.style.top  = rect.top  + 'px';
-
-  // Now animate to a new safe position
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      moveNoBtn();
-    });
-  });
-
-  // Mobile: flee on touch approach
-  document.addEventListener('touchmove', function(e) {
-    if (!isFloating) return;
-    const t = e.touches[0];
-    if (!t) return;
-    const r = noBtn.getBoundingClientRect();
-    const GAP = 70;
-    if (
-      t.clientX > r.left  - GAP &&
-      t.clientX < r.right + GAP &&
-      t.clientY > r.top   - GAP &&
-      t.clientY < r.bottom + GAP
-    ) moveNoBtn();
-  }, { passive: true });
-
-  // Desktop: flee on hover
-  noBtn.addEventListener('mouseenter', moveNoBtn);
-}
-
-/* ── Move to a new safe spot ── */
 function moveNoBtn() {
   if (placing) return;
   placing = true;
-  const { x, y } = safeSpot();
-  noBtn.style.left = x + 'px';
-  noBtn.style.top  = y + 'px';
-  setTimeout(() => { placing = false; }, 440);
+  const {x,y} = safeSpot();
+  noBtn.style.left = x+'px';
+  noBtn.style.top  = y+'px';
+  setTimeout(()=>{ placing=false; }, 460);
 }
 
-/* ── NO clicked ── */
+/* ── detach from card into free float ── */
+function makeFloating() {
+  if (isFloating) return;
+  isFloating = true;
+  const rect = noBtn.getBoundingClientRect();
+  noBtn.style.width  = noBtn.offsetWidth+'px';
+  noBtn.style.height = noBtn.offsetHeight+'px';
+  noBtn.classList.add('floating');
+  noBtn.style.left = rect.left+'px';
+  noBtn.style.top  = rect.top+'px';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>moveNoBtn()));
+
+  // mobile escape
+  let lastT = 0;
+  document.addEventListener('touchmove', function(e) {
+    if (!isFloating || noCount>=MAX_NO) return;
+    const now = Date.now(); if(now-lastT<55) return; lastT=now;
+    const t=e.touches[0]; if(!t) return;
+    const r=noBtn.getBoundingClientRect(); const G=72;
+    if(t.clientX>r.left-G && t.clientX<r.right+G && t.clientY>r.top-G && t.clientY<r.bottom+G) moveNoBtn();
+  }, {passive:true});
+
+  // desktop escape
+  noBtn.addEventListener('mouseenter',()=>{ if(noCount<MAX_NO) moveNoBtn(); });
+}
+
+/* ── shake the card ── */
+function shakeCard() {
+  const c = document.getElementById('card');
+  c.classList.remove('shake');
+  void c.offsetWidth; // reflow trick to restart animation
+  c.classList.add('shake');
+}
+
+/* ── vanish NO after MAX clicks ── */
+function vanishNoBtn() {
+  noBtn.style.opacity = '0';
+  noBtn.style.pointerEvents = 'none';
+  setTimeout(()=>{
+    noBtn.style.display = 'none';
+    // YES goes full width
+    yesBtn.style.transition += ', flex .4s ease';
+    yesBtn.style.flex = 'none';
+    yesBtn.style.width = '100%';
+    tryCount.textContent = 'The NO button gave up. Now only one choice remains. 😏';
+  }, 550);
+}
+
+/* ── update meter ── */
+function updateMeter(n) {
+  const pct = (n / MAX_NO) * 100;
+  meterFill.style.width = pct+'%';
+  meterText.textContent = n+' / '+MAX_NO;
+  // color shifts red as fills up
+  if (n >= 7) {
+    meterFill.style.background = 'linear-gradient(90deg,#ff1040,#ff5070)';
+  }
+}
+
+/* ── MAIN: NO clicked ── */
 function handleNo() {
   noCount++;
 
-  // First click: detach from card and start moving
-  if (!isFloating) {
-    makeFloating();
-  } else {
-    moveNoBtn();
-  }
+  // Show meter after first click
+  if (noCount === 1) meterWrap.classList.add('visible');
+
+  // Go floating on first click
+  if (!isFloating) makeFloating();
+  else if (noCount < MAX_NO) moveNoBtn();
+
+  // Shake card
+  shakeCard();
 
   // Update message
   msgBox.style.opacity = '0';
-  setTimeout(() => {
-    msgBox.textContent = MSGS[Math.min(noCount - 1, MSGS.length - 1)];
+  setTimeout(()=>{
+    msgBox.textContent = MSGS[Math.min(noCount-1, MSGS.length-1)];
     msgBox.style.opacity = '1';
   }, 240);
 
+  // Update NO button label — gets more scared
+  const labelIdx = Math.min(noCount-1, NO_LABELS.length-1);
+  noBtn.textContent = NO_LABELS[labelIdx];
+
+  // NO button shrinks slightly each time
+  const curSize = parseFloat(noBtn.style.fontSize) || parseFloat(getComputedStyle(noBtn).fontSize) || 15;
+  if (noCount < MAX_NO) {
+    const newSize = Math.max(10, curSize - 0.55);
+    noBtn.style.fontSize = newSize+'px';
+    noBtn.style.padding  = `${Math.max(7, 15 - noCount*.7)}px ${Math.max(10, 26 - noCount*1.4)}px`;
+  }
+
+  // Meter
+  updateMeter(noCount);
+
+  // YES grows a little
+  const yCur = parseFloat(getComputedStyle(yesBtn).fontSize) || 15;
+  if (yCur < 22) yesBtn.style.fontSize = (yCur+0.75)+'px';
+
   // Counter
-  tryCount.textContent =
-    `You have tried ${noCount} time${noCount !== 1 ? 's' : ''}. It will never change.`;
+  const left = MAX_NO - noCount;
+  if (left > 0) {
+    tryCount.textContent = `Tried ${noCount} time${noCount!==1?'s':''}. NO button has ${left} escape${left!==1?'s':''} left.`;
+  } else {
+    tryCount.textContent = 'The NO button has run out of escapes! 😂';
+  }
 
-  // YES grows a tiny bit
-  const cur = parseFloat(getComputedStyle(yesBtn).fontSize) || 15;
-  if (cur < 22) yesBtn.style.fontSize = (cur + 0.9) + 'px';
+  // Vanish after MAX
+  if (noCount >= MAX_NO) {
+    setTimeout(()=>vanishNoBtn(), 900);
+  }
 }
 
-/* ─────────────────────────────
-   YES — THANK-YOU SCREEN
-───────────────────────────── */
+/* ── YES ── */
 function handleYes() {
-  if (isFloating) {
-    noBtn.style.opacity = '0';
-    noBtn.style.pointerEvents = 'none';
-  }
-
+  if (isFloating) { noBtn.style.opacity='0'; noBtn.style.pointerEvents='none'; }
   const card = document.getElementById('card');
-  card.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
-  card.style.opacity   = '0';
-  card.style.transform = 'scale(0.95) translateY(-10px)';
-
-  setTimeout(() => {
-    card.style.display = 'none';
-    if (isFloating) noBtn.style.display = 'none';
-    const s2 = document.getElementById('screen2');
-    s2.style.display = 'flex';
-    launchConfetti();
-  }, 370);
+  card.style.transition='opacity .38s ease,transform .38s ease';
+  card.style.opacity='0';
+  card.style.transform='scale(.95) translateY(-12px)';
+  setTimeout(()=>{
+    card.style.display='none';
+    noBtn.style.display='none';
+    const s2=document.getElementById('screen2');
+    s2.style.display='flex';
+    doConfetti();
+  }, 390);
 }
 
-/* ─────────────────────────────
-   CONFETTI
-───────────────────────────── */
-const CC = ['#ff4070','#ff85a8','#ffe44d','#5ce8e8','#fff','#a29bfe','#ff9f43'];
-function launchConfetti() {
-  for (let i = 0; i < 85; i++) {
-    const el  = document.createElement('div');
-    el.className = 'cbit';
-    const sz  = 6 + Math.random() * 8;
-    const dur = 1.8 + Math.random() * 2.2;
-    const del = Math.random() * 1.0;
-    el.style.cssText = `
-      left:${Math.random()*100}vw;
-      width:${sz}px;
-      height:${sz*(0.4+Math.random()*0.9)}px;
-      background:${CC[~~(Math.random()*CC.length)]};
-      transform:rotate(${Math.random()*360}deg);
-      animation:cfall ${dur}s ${del}s linear forwards;
-    `;
+/* ── CONFETTI ── */
+const CC=['#ff4070','#ff85a8','#ffe44d','#5ce8e8','#ffffff','#a29bfe','#ff9f43','#55efc4'];
+function doConfetti() {
+  for(let i=0;i<100;i++){
+    const el=document.createElement('div'); el.className='cbit';
+    const sz=5+Math.random()*9, dur=1.8+Math.random()*2.4, del=Math.random()*1.1;
+    el.style.cssText=`left:${Math.random()*100}vw;width:${sz}px;height:${sz*(.4+Math.random())}px;background:${CC[~~(Math.random()*CC.length)]};transform:rotate(${Math.random()*360}deg);animation:cfall ${dur}s ${del}s linear forwards;`;
     document.body.appendChild(el);
-    setTimeout(() => el.remove(), (dur + del + 0.3) * 1000);
+    setTimeout(()=>el.remove(),(dur+del+.3)*1000);
   }
 }
 
-/* ─────────────────────────────
-   RESIZE
-───────────────────────────── */
-window.addEventListener('resize', () => {
+/* ── RESIZE ── */
+window.addEventListener('resize',()=>{
   resizeCvs();
-  if (isFloating && noBtn.style.display !== 'none') {
-    placing = false;
-    moveNoBtn();
-  }
+  if(isFloating && noCount<MAX_NO && noBtn.style.display!=='none'){ placing=false; moveNoBtn(); }
 });
 </script>
 </body>
-  </html>
-  
+</html>
+
