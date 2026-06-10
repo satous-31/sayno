@@ -1,601 +1,328 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<title>Leave Me Alone</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Important Message 💌</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Playfair+Display:ital,wght@0,900;1,800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { width: 100%; height: 100%; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-body {
-  font-family: 'Inter', system-ui, sans-serif;
-  background: #080006;
-  min-height: 100vh;
-  min-height: 100dvh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  position: relative;
-}
+  body {
+    min-height: 100vh;
+    background: #1a1a2e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Nunito', sans-serif;
+    padding: 20px;
+  }
 
-#bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  /* Soft background glow */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -150px; left: -150px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(255,80,120,0.15), transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -150px; right: -150px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(130,60,200,0.12), transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
 
-.orb { position: fixed; border-radius: 50%; pointer-events: none; z-index: 1; }
-.orb1 {
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(210,15,75,.18) 0%, transparent 65%);
-  top: -200px; right: -160px;
-  animation: orbF1 8s ease-in-out infinite;
-}
-.orb2 {
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(100,0,85,.13) 0%, transparent 65%);
-  bottom: -160px; left: -130px;
-  animation: orbF2 10s ease-in-out infinite;
-}
-@keyframes orbF1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-28px,18px)} }
-@keyframes orbF2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(18px,-22px)} }
+  /* Card */
+  .card {
+    background: #22223b;
+    border: 2px solid rgba(255,255,255,0.08);
+    border-radius: 28px;
+    padding: clamp(30px, 6vw, 56px);
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    animation: popUp 0.5s ease both;
+  }
+  @keyframes popUp {
+    from { opacity: 0; transform: scale(0.9) translateY(20px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
 
-/* ── CARD ── */
-#card {
-  position: relative;
-  z-index: 10;
-  width: min(92vw, 460px);
-  background: rgba(16, 2, 12, 0.97);
-  border-radius: 28px;
-  padding: 40px 36px 36px;
-  text-align: center;
-  box-shadow:
-    0 0 0 1px rgba(255,50,95,.12) inset,
-    0 32px 80px rgba(0,0,0,.85),
-    0 0 100px rgba(200,15,70,.1);
-  animation: cardIn .65s cubic-bezier(.22,1,.36,1) both;
-  border: 1px solid transparent;
-  background-clip: padding-box;
-}
-#card::before {
-  content: '';
-  position: absolute; inset: -1px; border-radius: 29px; z-index: -1;
-  background: linear-gradient(135deg, rgba(255,50,95,.35), rgba(150,0,120,.18), rgba(255,50,95,.08), rgba(150,0,120,.28));
-  background-size: 300% 300%;
-  animation: borderRot 5s linear infinite;
-}
-@keyframes borderRot { 0%{background-position:0% 50%} 100%{background-position:300% 50%} }
-@keyframes cardIn { from{opacity:0;transform:translateY(22px) scale(.96)} to{opacity:1;transform:none} }
-@keyframes shake {
-  0%,100%{transform:translateX(0)}
-  15%{transform:translateX(-6px) rotate(-.8deg)}
-  30%{transform:translateX(6px) rotate(.8deg)}
-  50%{transform:translateX(-4px)}
-  70%{transform:translateX(4px)}
-  85%{transform:translateX(-1px)}
-}
-.shake { animation: shake .42s cubic-bezier(.36,.07,.19,.97) both; }
+  /* Big emoji */
+  .big-emoji {
+    font-size: clamp(60px, 14vw, 90px);
+    display: block;
+    margin-bottom: 20px;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-12px); }
+  }
 
-/* badge */
-.badge {
-  display: inline-flex; align-items: center; gap: 7px;
-  background: rgba(255,50,95,.1); border: 1px solid rgba(255,50,95,.24);
-  border-radius: 100px; padding: 5px 14px 5px 10px;
-  font-size: 10.5px; font-weight: 700; letter-spacing: .12em;
-  text-transform: uppercase; color: #ff6090; margin-bottom: 24px;
-}
-.dot {
-  width: 7px; height: 7px; background: #ff3060; border-radius: 50%;
-  animation: blink 1.4s ease-in-out infinite; flex-shrink: 0;
-}
-@keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.1;transform:scale(.7)} }
+  /* Title */
+  h1 {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    font-weight: 900;
+    color: #ffffff;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  h1 span { color: #ff4f7a; }
 
-/* icon */
-.icon-wrap {
-  width: 82px; height: 82px; margin: 0 auto 20px; border-radius: 50%;
-  background: rgba(255,50,95,.09); border: 1px solid rgba(255,50,95,.18);
-  display: flex; align-items: center; justify-content: center; font-size: 36px;
-  animation: iPulse 4s ease-in-out infinite;
-}
-@keyframes iPulse {
-  0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(255,50,95,.14)}
-  50%{transform:scale(1.06);box-shadow:0 0 0 12px rgba(255,50,95,0)}
-}
+  /* Small text */
+  .msg {
+    font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+    color: #a0a0c0;
+    line-height: 1.7;
+    margin-bottom: 34px;
+  }
 
-h1 {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(25px, 5.8vw, 38px); font-weight: 900;
-  line-height: 1.15; color: #fff; margin-bottom: 10px;
-}
-h1 em { font-style: italic; color: #ff3f6e; }
+  /* Buttons */
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
 
-.sub {
-  font-size: clamp(13px, 2.9vw, 15px); color: rgba(255,185,210,.45);
-  line-height: 1.72; margin-bottom: 22px; font-weight: 400;
-}
+  .btn-yes {
+    background: #ff4f7a;
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+    font-weight: 700;
+    padding: 14px 36px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 280px;
+    box-shadow: 0 6px 24px rgba(255,79,122,0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 6px 24px rgba(255,79,122,0.35); }
+    50%       { box-shadow: 0 6px 36px rgba(255,79,122,0.6); }
+  }
+  .btn-yes:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 32px rgba(255,79,122,0.5);
+  }
 
-.line {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,50,95,.2), transparent);
-  margin-bottom: 20px;
-}
+  .btn-no {
+    background: transparent;
+    color: #666680;
+    font-family: 'Nunito', sans-serif;
+    font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+    font-weight: 700;
+    padding: 10px 28px;
+    border: 2px solid rgba(255,255,255,0.08);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-no:hover { border-color: rgba(255,255,255,0.18); color: #999; }
 
-#msgBox {
-  background: rgba(255,50,95,.07); border: 1px solid rgba(255,50,95,.14);
-  border-radius: 12px; padding: 12px 16px; margin-bottom: 24px;
-  font-size: clamp(12.5px, 2.9vw, 14px); color: rgba(255,210,228,.8);
-  font-style: italic; line-height: 1.58; min-height: 46px;
-  display: flex; align-items: center; justify-content: center;
-  transition: opacity .3s ease;
-}
+  /* Floating no button */
+  .btn-no.floating {
+    position: fixed;
+    z-index: 999;
+    transition:
+      left 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+      top  0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
 
-/* desperation meter */
-#meterWrap {
-  margin-bottom: 22px;
-  opacity: 0;
-  transition: opacity .5s ease;
-}
-#meterWrap.show { opacity: 1; }
-.m-label {
-  display: flex; justify-content: space-between;
-  margin-bottom: 6px;
-}
-.m-label span { font-size: 10.5px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: rgba(255,100,140,.45); }
-.m-track {
-  height: 5px; background: rgba(255,50,95,.1); border-radius: 99px; overflow: hidden;
-}
-#meterBar {
-  height: 100%; width: 0%; border-radius: 99px;
-  background: linear-gradient(90deg, #ff3060, #ff80a8);
-  transition: width .5s cubic-bezier(.34,1.4,.64,1);
-  box-shadow: 0 0 8px rgba(255,50,95,.45);
-}
+  /* Funny message under buttons */
+  .funny {
+    margin-top: 18px;
+    font-size: clamp(0.8rem, 2vw, 0.88rem);
+    color: #ff4f7a;
+    font-style: italic;
+    min-height: 22px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .funny.show { opacity: 1; }
 
-/* button row */
-.btn-row { display: flex; gap: 12px; }
+  /* Try count */
+  .tries {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: #444460;
+    font-weight: 700;
+  }
 
-#yesBtn {
-  flex: 1; padding: 15px 10px;
-  background: linear-gradient(135deg, #de1540, #b50f4a);
-  color: #fff; border: none; border-radius: 13px;
-  font-family: 'Inter', sans-serif; font-size: clamp(13px, 3vw, 15px); font-weight: 800;
-  cursor: pointer; box-shadow: 0 6px 22px rgba(200,15,65,.42);
-  transition: transform .15s, box-shadow .15s, font-size .4s, width .4s;
-  position: relative; overflow: hidden; white-space: nowrap;
-}
-#yesBtn::after {
-  content: ''; position: absolute; inset: 0; border-radius: inherit;
-  background: linear-gradient(135deg, rgba(255,255,255,.1), transparent); pointer-events: none;
-}
-#yesBtn:hover  { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(200,15,65,.6); }
-#yesBtn:active { transform: scale(.97); }
-
-/* NO placeholder — keeps card layout stable when NO floats away */
-#noPlaceholder {
-  flex: 1;
-  /* invisible, just holds space in btn-row */
-  visibility: hidden;
-  padding: 15px 10px;
-  border-radius: 13px;
-}
-
-/* NO button — ALWAYS fixed, positioned by JS before showing */
-#noBtn {
-  position: fixed;
-  z-index: 9999;
-  padding: 14px 24px;
-  background: rgba(14, 2, 10, 0.88);
-  color: rgba(175,135,155,.7);
-  border: 1.5px solid rgba(155,115,135,.32);
-  border-radius: 13px;
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(13px, 3vw, 15px);
-  font-weight: 700;
-  cursor: pointer;
-  white-space: nowrap;
-  /* starts invisible, JS places it then shows it */
-  visibility: hidden;
-  opacity: 0;
-  transition:
-    left   .44s cubic-bezier(.34,1.5,.64,1),
-    top    .44s cubic-bezier(.34,1.5,.64,1),
-    opacity .35s ease,
-    font-size .3s ease;
-}
-#noBtn:hover { background: rgba(155,115,135,.1); }
-
-/* ── SCREEN 2 ── */
-#screen2 {
-  display: none; position: relative; z-index: 10;
-  width: min(92vw, 460px);
-  background: rgba(16,2,12,.97);
-  border-radius: 28px; padding: 50px 36px 46px;
-  text-align: center; flex-direction: column; align-items: center; gap: 14px;
-  box-shadow: 0 32px 80px rgba(0,0,0,.85), 0 0 100px rgba(200,15,70,.1);
-  border: 1px solid transparent; background-clip: padding-box;
-  animation: cardIn .6s cubic-bezier(.22,1,.36,1) both;
-}
-#screen2::before {
-  content: ''; position: absolute; inset: -1px; border-radius: 29px; z-index: -1;
-  background: linear-gradient(135deg, rgba(255,220,50,.38), rgba(255,150,50,.18), rgba(255,220,50,.08), rgba(255,150,50,.28));
-  background-size: 300% 300%; animation: borderRot 4s linear infinite;
-}
-.ty-ring {
-  width: 90px; height: 90px; border-radius: 50%;
-  background: rgba(255,220,60,.09); border: 1px solid rgba(255,220,60,.22);
-  display: flex; align-items: center; justify-content: center; font-size: 40px;
-  animation: popIn .5s cubic-bezier(.34,1.56,.64,1) both .12s;
-}
-@keyframes popIn { from{opacity:0;transform:scale(.25)} to{opacity:1;transform:scale(1)} }
-#screen2 h2 {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(22px,5.2vw,32px); font-weight: 900; color: #fff; line-height: 1.18;
-}
-#screen2 h2 em { font-style: italic; color: #ffe44d; }
-.ty-sub { font-size: clamp(13px,2.9vw,15px); color: rgba(255,200,215,.55); line-height: 1.68; max-width: 310px; }
-.ty-bye { font-size: 11.5px; color: rgba(255,130,160,.25); letter-spacing: .05em; margin-top: 4px; }
-
-.cbit { position: fixed; top: -14px; border-radius: 3px; pointer-events: none; z-index: 9997; }
-@keyframes cfall { to { transform: translateY(110vh) rotate(640deg); opacity: 0; } }
-
-@media (max-width: 360px) {
-  #card, #screen2 { padding: 28px 16px 24px; border-radius: 22px; }
-  .icon-wrap       { width: 68px; height: 68px; font-size: 30px; }
-  .btn-row         { flex-direction: column; }
-  #noPlaceholder   { display: none; }
-}
+  /* Final screen */
+  #finalScreen { display: none; }
+  .final-inner {
+    animation: popUp 0.5s ease both;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .final-inner h2 {
+    font-size: clamp(1.4rem, 4.5vw, 1.9rem);
+    font-weight: 900;
+    color: #fff;
+  }
+  .final-inner p {
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    color: #a0a0c0;
+    line-height: 1.7;
+  }
+  .final-tag {
+    font-size: 0.82rem;
+    color: #444460;
+    font-style: italic;
+    margin-top: 6px;
+  }
 </style>
 </head>
 <body>
 
-<canvas id="bg"></canvas>
-<div class="orb orb1"></div>
-<div class="orb orb2"></div>
+<div class="card" id="card">
 
-<!-- SCREEN 1 -->
-<div id="card">
-  <div class="badge"><span class="dot"></span> Important Message</div>
-  <div class="icon-wrap">🙅‍♀️</div>
-  <h1>I am <em>not interested.</em></h1>
-  <p class="sub">
-    I respect you as a person.<br>
-    But I do not want to be your girlfriend.<br>
-    Please understand and move on.
-  </p>
-  <div class="line"></div>
-  <div id="msgBox">You deserve someone who truly likes you back. 💙 Please go find that person.</div>
+  <!-- Main Screen -->
+  <div id="mainScreen">
+    <span class="big-emoji" id="emoji">🙅‍♀️</span>
+    <h1>I am <span>not</span> interested in you.</h1>
+    <p class="msg">
+      Please stop. I do not want to be your girlfriend.<br>
+      This is my final answer. 😊
+    </p>
 
-  <div id="meterWrap">
-    <div class="m-label">
-      <span>🏃 Running away</span>
-      <span id="meterLabel">Almost there...</span>
+    <div class="buttons" id="btnArea">
+      <button class="btn-yes" onclick="handleYes()">Okay, I will leave you alone 👍</button>
+      <button class="btn-no" id="noBtn" onclick="handleNo()">But I really like you 🥺</button>
     </div>
-    <div class="m-track"><div id="meterBar"></div></div>
+
+    <p class="funny" id="funnyMsg"></p>
+    <p class="tries" id="triesMsg"></p>
   </div>
 
-  <div class="btn-row">
-    <button id="yesBtn" onclick="handleYes()">Okay, I understand 👍</button>
-    <div id="noPlaceholder"></div>
+  <!-- Final Screen -->
+  <div id="finalScreen">
+    <div class="final-inner">
+      <span style="font-size:clamp(60px,14vw,90px)">🎉</span>
+      <h2>Thank you! Finally!</h2>
+      <p>
+        Good luck out there.<br>
+        You will find someone who likes you back. 🌸
+      </p>
+      <span class="final-tag">— Not your person 😊</span>
+    </div>
   </div>
-</div>
 
-<!-- NO button: fixed, outside card entirely -->
-<button id="noBtn" onclick="handleNo()">No, I won't 😤</button>
-
-<!-- SCREEN 2 -->
-<div id="screen2">
-  <div class="ty-ring">🎉</div>
-  <h2>Thank you for <em>understanding.</em></h2>
-  <p class="ty-sub">Now please move on and find someone who truly cares for you. You deserve real happiness too. 💛</p>
-  <p class="ty-bye">You may close this page now. Goodbye. 👋</p>
 </div>
 
 <script>
-/* ── PARTICLES ── */
-const cvs = document.getElementById('bg');
-const ctx = cvs.getContext('2d');
-let VW = 0, VH = 0;
-function resizeCvs() { VW = cvs.width = window.innerWidth; VH = cvs.height = window.innerHeight; }
-resizeCvs();
-window.addEventListener('resize', resizeCvs);
-function newP(sc) {
-  return { x:Math.random()*(VW||400), y:sc?Math.random()*(VH||700):(VH||700)+10,
-           s:3+Math.random()*8, vy:.25+Math.random()*.46, t:Math.random()*Math.PI*2,
-           a:.04+Math.random()*.08, heart:Math.random()>.4 };
-}
-const parts = Array.from({length:22},()=>newP(true));
-function drawHeart(x,y,s,a) {
-  ctx.save(); ctx.globalAlpha=a; ctx.fillStyle='#d82858';
-  ctx.beginPath();
-  ctx.moveTo(x,y+s*.3);
-  ctx.bezierCurveTo(x,y,x-s,y,x-s,y+s*.42);
-  ctx.bezierCurveTo(x-s,y+s,x,y+s*1.28,x,y+s*1.55);
-  ctx.bezierCurveTo(x,y+s*1.28,x+s,y+s,x+s,y+s*.42);
-  ctx.bezierCurveTo(x+s,y,x,y,x,y+s*.3);
-  ctx.fill(); ctx.restore();
-}
-(function animBg(){
-  ctx.clearRect(0,0,VW,VH);
-  parts.forEach(p=>{
-    p.t+=.014; p.x+=Math.sin(p.t)*.36; p.y-=p.vy;
-    if(p.y<-20) Object.assign(p,newP(false));
-    if(p.heart){drawHeart(p.x,p.y,p.s,p.a);}
-    else{ctx.save();ctx.globalAlpha=p.a*.6;ctx.fillStyle='#a00848';ctx.beginPath();ctx.arc(p.x,p.y,p.s*.48,0,Math.PI*2);ctx.fill();ctx.restore();}
-  });
-  requestAnimationFrame(animBg);
-})();
+  let count = 0;
+  let isFloating = false;
 
-/* ── STATE ── */
-const noBtn     = document.getElementById('noBtn');
-const msgBox    = document.getElementById('msgBox');
-const yesBtn    = document.getElementById('yesBtn');
-const meterWrap = document.getElementById('meterWrap');
-const meterBar  = document.getElementById('meterBar');
-const meterLbl  = document.getElementById('meterLabel');
+  const noBtn    = document.getElementById('noBtn');
+  const funny    = document.getElementById('funnyMsg');
+  const tries    = document.getElementById('triesMsg');
+  const emoji    = document.getElementById('emoji');
 
-const MAX_NO = 10;
-let noCount  = 0;
-let moving   = false; // debounce
-
-const MSGS = [
-  "Come on. Please just understand me. 🙏",
-  "I already said NO. Please respect that. 🚫",
-  "Clicking that will never change my answer. 😅",
-  "I am completely serious. Not interested. 💔",
-  "You seem nice, but my answer is still NO. 😐",
-  "Please stop. This is not going anywhere. 🛑",
-  "You are only wasting your own time here. 😔",
-  "This is getting embarrassing. Please stop. 😬",
-  "Still NO. Go find someone who truly likes you. ⭐",
-  "Okay fine. I cannot run anymore. But it is still NO. 😂"
-];
-
-const NO_LABELS = [
-  "No, I won't 😤",
-  "No! Leave me 😤",
-  "Still no! 😠",
-  "Stop it! 😣",
-  "Please stop 😟",
-  "I'm begging you 🥺",
-  "Don't click me! 😭",
-  "PLEASE NO 😱",
-  "I give up... 😵",
-  "...okay fine 😶"
-];
-
-/* ────────────────────────────────
-   SAFE POSITION CALCULATOR
-   Guarantees button stays fully
-   within viewport, never on card
-──────────────────────────────── */
-function safePos() {
-  // Force a fresh measure every time
-  const bw  = noBtn.offsetWidth  || 160;
-  const bh  = noBtn.offsetHeight || 50;
-  const vw  = window.innerWidth;
-  const vh  = window.innerHeight;
-  const PAD = 16; // edge padding
-
-  // Card bounds with buffer
-  const cardEl = document.getElementById('card');
-  let C = null;
-  if (cardEl && cardEl.offsetParent !== null) {
-    const r = cardEl.getBoundingClientRect();
-    const BUF = 30;
-    C = { l: r.left-BUF, r: r.right+BUF, t: r.top-BUF, b: r.bottom+BUF };
-  }
-
-  // Four zones around the card
-  // Each zone: button must fit fully inside viewport
-  const zones = [];
-  if (C) {
-    // TOP zone
-    const topH = C.t - PAD;
-    if (topH >= bh + 4)
-      zones.push({ x1: PAD, y1: PAD, x2: vw - bw - PAD, y2: C.t - bh });
-
-    // BOTTOM zone
-    const botH = vh - C.b - PAD;
-    if (botH >= bh + 4)
-      zones.push({ x1: PAD, y1: C.b, x2: vw - bw - PAD, y2: vh - bh - PAD });
-
-    // LEFT zone
-    const leftW = C.l - PAD;
-    if (leftW >= bw + 4)
-      zones.push({ x1: PAD, y1: PAD, x2: C.l - bw, y2: vh - bh - PAD });
-
-    // RIGHT zone
-    const rightW = vw - C.r - PAD;
-    if (rightW >= bw + 4)
-      zones.push({ x1: C.r, y1: PAD, x2: vw - bw - PAD, y2: vh - bh - PAD });
-  } else {
-    zones.push({ x1: PAD, y1: PAD, x2: vw - bw - PAD, y2: vh - bh - PAD });
-  }
-
-  // Filter zones that have real area
-  const valid = zones.filter(z => z.x2 - z.x1 > 8 && z.y2 - z.y1 > 8);
-
-  if (valid.length > 0) {
-    // Pick a zone weighted by area so bigger zones get more chance
-    const areas = valid.map(z => (z.x2-z.x1) * (z.y2-z.y1));
-    const total = areas.reduce((a,b)=>a+b,0);
-    let pick = Math.random() * total;
-    let z = valid[valid.length-1];
-    for (let i=0;i<valid.length;i++) { pick -= areas[i]; if(pick<=0){z=valid[i];break;} }
-    const x = z.x1 + Math.random() * (z.x2 - z.x1);
-    const y = z.y1 + Math.random() * (z.y2 - z.y1);
-    return { x: Math.round(x), y: Math.round(y) };
-  }
-
-  // Absolute fallback: four corners, pick one far from current position
-  const cur = noBtn.getBoundingClientRect();
-  const corners = [
-    {x:PAD,               y:PAD},
-    {x:vw-bw-PAD,         y:PAD},
-    {x:PAD,               y:vh-bh-PAD},
-    {x:vw-bw-PAD,         y:vh-bh-PAD}
+  const messages = [
+    "No. Still no. 😄",
+    "The answer is still no. 🙂",
+    "This button is not going to help you. 😂",
+    "Why do you keep trying? 😭",
+    "Bro... please stop. 💀",
+    "Okay now I am laughing. 😂",
+    "You are so funny. But still no.",
+    "Have you tried moving on? It works! 😊",
+    "My answer is no. It will always be no.",
+    "Please go drink some water and calm down. 💧",
+    "The no button feels bad for you too. 😂",
+    "Okay I really admire your effort. But still — no.",
+    "Go touch some grass. Seriously. 🌿",
+    "This is not a movie. There is no happy ending here. 😅",
+    "Still here? Okay. Still no.",
   ];
-  // Pick corner farthest from current center
-  const cx = cur.left + bw/2, cy = cur.top + bh/2;
-  let best = corners[0], bestD = 0;
-  corners.forEach(c => {
-    const d = Math.hypot(c.x+bw/2-cx, c.y+bh/2-cy);
-    if(d>bestD){bestD=d;best=c;}
-  });
-  return best;
-}
 
-/* ── Move NO button to a safe spot ── */
-function moveNoBtn() {
-  if (moving) return;
-  moving = true;
-  const {x, y} = safePos();
-  noBtn.style.left = x + 'px';
-  noBtn.style.top  = y + 'px';
-  setTimeout(() => { moving = false; }, 460);
-}
+  const noLabels = [
+    "But I really like you 🥺",
+    "Please! 🙏",
+    "Just one chance? 😢",
+    "Why not?? 😭",
+    "I give up... 😔",
+    "Fine 💔",
+    "Okay... 😶",
+  ];
 
-/* ── Initial placement: measure, place, then reveal ── */
-function initNoBtn() {
-  // Make visible but transparent so we can measure size
-  noBtn.style.visibility = 'visible';
-  noBtn.style.opacity = '0';
+  const emojis = [
+    "🙅‍♀️", "😤", "🚫", "✋", "😑", "💨", "🚪"
+  ];
 
-  // Wait one frame for browser to calculate dimensions
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      moveNoBtn();
-      // Fade in after placement
-      setTimeout(() => {
-        noBtn.style.opacity = '1';
-      }, 100);
-    });
-  });
-}
+  function handleNo() {
+    count++;
 
-// Init after page fully loaded
-window.addEventListener('load', () => { setTimeout(initNoBtn, 250); });
-// Fallback if load already fired
-if (document.readyState === 'complete') setTimeout(initNoBtn, 250);
+    // Show funny message
+    funny.classList.remove('show');
+    setTimeout(() => {
+      funny.textContent = messages[Math.min(count - 1, messages.length - 1)];
+      funny.classList.add('show');
+    }, 100);
 
-/* ── Desktop: flee on hover ── */
-noBtn.addEventListener('mouseenter', () => {
-  if (noCount < MAX_NO) moveNoBtn();
-});
+    // Show try count
+    tries.textContent = count > 1 ? `You have tried ${count} times. 👀` : '';
 
-/* ── Mobile: flee when finger comes close ── */
-let lastTouch = 0;
-document.addEventListener('touchmove', function(e) {
-  if (noCount >= MAX_NO) return;
-  const now = Date.now();
-  if (now - lastTouch < 60) return;
-  lastTouch = now;
-  const t = e.touches[0]; if (!t) return;
-  const r = noBtn.getBoundingClientRect();
-  const G = 68;
-  if (t.clientX > r.left-G && t.clientX < r.right+G &&
-      t.clientY > r.top-G  && t.clientY < r.bottom+G) {
-    moveNoBtn();
-  }
-}, {passive:true});
+    // Change button label
+    noBtn.textContent = noLabels[Math.min(count - 1, noLabels.length - 1)];
 
-/* ── shake card ── */
-function shakeCard() {
-  const c = document.getElementById('card');
-  c.classList.remove('shake');
-  void c.offsetWidth;
-  c.classList.add('shake');
-}
+    // Change emoji
+    emoji.textContent = emojis[Math.min(count - 1, emojis.length - 1)];
 
-/* ── vanish NO after MAX clicks ── */
-function vanishNoBtn() {
-  noBtn.style.transition = 'opacity .6s ease, left .44s cubic-bezier(.34,1.5,.64,1), top .44s cubic-bezier(.34,1.5,.64,1)';
-  noBtn.style.opacity = '0';
-  noBtn.style.pointerEvents = 'none';
-  setTimeout(() => { noBtn.style.display = 'none'; }, 700);
-
-  // YES goes full width, placeholder hidden
-  document.getElementById('noPlaceholder').style.display = 'none';
-  yesBtn.style.flex = '1 1 100%';
-
-  // Final message
-  msgBox.style.opacity = '0';
-  setTimeout(() => {
-    msgBox.textContent = 'The NO button has given up. Only one choice remains now. 😏';
-    msgBox.style.opacity = '1';
-  }, 240);
-}
-
-/* ── NO clicked ── */
-function handleNo() {
-  noCount++;
-
-  // Show meter from click 1
-  if (noCount === 1) meterWrap.classList.add('show');
-
-  // Move button
-  if (noCount < MAX_NO) moveNoBtn();
-
-  // Shake card
-  shakeCard();
-
-  // Update message
-  msgBox.style.opacity = '0';
-  setTimeout(() => {
-    if (noCount < MAX_NO) {
-      msgBox.textContent = MSGS[noCount - 1] || MSGS[MSGS.length - 1];
+    // Float the button away
+    if (!isFloating) {
+      noBtn.classList.add('floating');
+      document.body.appendChild(noBtn);
+      isFloating = true;
     }
-    msgBox.style.opacity = '1';
-  }, 240);
-
-  // NO label evolves
-  noBtn.textContent = NO_LABELS[Math.min(noCount, NO_LABELS.length - 1)];
-
-  // NO shrinks
-  const curFs = parseFloat(getComputedStyle(noBtn).fontSize) || 15;
-  if (noCount < MAX_NO) {
-    noBtn.style.fontSize = Math.max(10, curFs - 0.55) + 'px';
+    jumpAway();
   }
 
-  // Meter fills
-  const pct = Math.min((noCount / MAX_NO) * 100, 100);
-  meterBar.style.width = pct + '%';
-  if (noCount >= 7) meterBar.style.background = 'linear-gradient(90deg,#ff1040,#ff5070)';
-  const left = MAX_NO - noCount;
-  meterLbl.textContent = left > 0 ? left + ' escape' + (left !== 1 ? 's' : '') + ' left' : 'No escapes left!';
-
-  // YES grows
-  const yFs = parseFloat(getComputedStyle(yesBtn).fontSize) || 15;
-  if (yFs < 21) yesBtn.style.fontSize = (yFs + 0.7) + 'px';
-
-  // Vanish after MAX
-  if (noCount >= MAX_NO) {
-    setTimeout(vanishNoBtn, 800);
+  function jumpAway() {
+    const w = noBtn.offsetWidth  + 20;
+    const h = noBtn.offsetHeight + 20;
+    const x = Math.random() * (window.innerWidth  - w) + 10;
+    const y = Math.random() * (window.innerHeight - h) + 10;
+    noBtn.style.left = x + 'px';
+    noBtn.style.top  = y + 'px';
   }
-}
 
-/* ── YES clicked ── */
-function handleYes() {
-  noBtn.style.opacity = '0';
-  noBtn.style.pointerEvents = 'none';
+  // Escape before hover on desktop
+  noBtn.addEventListener('mouseenter', () => {
+    if (isFloating) jumpAway();
+  });
 
-  const card = document.getElementById('card');
-  card.style.transition = 'opacity .38s ease, transform .38s ease';
-  card.style.opacity = '0';
-  card.style.transform = 'scale(.95) translateY(-12px)';
+  // Escape before touch on mobile
+  noBtn.addEventListener('touchstart', (e) => {
+    if (isFloating) {
+      e.preventDefault();
+      jumpAway();
+    }
+  }, { passive: false });
 
-  setTimeout(() => {
-    card.style.display = 'none';
-    noBtn.style.display = 'none';
-    const s2 = document.getElementById('screen2');
-    s2.style.display = 'flex';
-    doConfetti();
-  }, 400);
-}
+  function handleYes() {
+    document.getElementById('mainScreen').style.display = 'none';
+    document.getElementById('finalScreen').style.display = 'block';
+    if (noBtn.parentNode) noBtn.parentNode.removeChild(noBtn);
+  }
+</script>
+</body>
+</html>
 
-/* ── CONFETTI ── */
-const CC = ['#ff4070','#ff85a8','#ffe44d','#5ce8e8','#fff','#a29bfe','#ff9f43','#55efc4'];
-function doConfetti() {
-  for (let i = 0; i < 100; i++) {
-    const el = document.createElement('div'); el.className = 'cbit';
-    const sz  = 5 + Math.random
